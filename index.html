@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pescata Dev — Herramientas para servidores Arma Reforger</title>
-<meta name="description" content="Desarrollo de paneles, bots de Discord, monitorización y modelado 3D para servidores de Arma Reforger. Proyecto: Tercio Fantasma.">
+<meta name="description" content="Panel web con Discord, modelos 3D y desarrollo a medida para servidores de Arma Reforger, dedicados o alquilados (Nitrado, GTX, etc).">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,7 +77,7 @@
     display:flex; align-items:center; gap:8px; margin-bottom:18px;
   }
   .pulse{width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px rgba(79,168,160,0.18);}
-  h1{font-size:2.7rem; line-height:1.12; margin:0 0 20px; font-weight:800; max-width:14ch;}
+  h1{font-size:2.7rem; line-height:1.12; margin:0 0 20px; font-weight:800; max-width:15ch;}
   @media (max-width:560px){ h1{font-size:2.05rem;} }
   .hero p.lead{color:var(--muted); font-size:1.05rem; max-width:46ch; margin:0 0 30px;}
   .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
@@ -90,6 +90,8 @@
   .btn-primary:hover{background:#f0b455;}
   .btn-ghost{border-color:var(--line); color:var(--ink);}
   .btn-ghost:hover{border-color:var(--muted-2);}
+  .btn-sm{padding:8px 14px; font-size:0.86rem;}
+  .btn[aria-disabled="true"]{opacity:0.55; cursor:default;}
 
   /* ---------- MOCK HUD PANEL ---------- */
   .hud{
@@ -119,27 +121,42 @@
   h2{font-size:1.7rem; margin:0 0 10px; font-weight:700;}
   .sec-head p{color:var(--muted); margin:0; font-size:0.98rem;}
 
-  /* status compare */
+  /* ---------- CATALOGO ---------- */
+  .catalog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media (max-width:860px){ .catalog-grid{grid-template-columns:1fr;} }
+  .catalog-card{background:var(--bg-panel); padding:26px; display:flex; flex-direction:column; gap:14px;}
+  .catalog-card h3{margin:0; font-size:1.08rem; font-weight:700; display:flex; align-items:center; gap:10px;}
+  .catalog-card .status{
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.03em;
+    color:var(--amber); border:1px solid var(--amber-dim); border-radius:2px; padding:2px 7px; white-space:nowrap;
+  }
+  .catalog-card p{margin:0; color:var(--muted); font-size:0.9rem;}
+  .catalog-card ul{list-style:none; margin:0; padding:0; display:grid; gap:7px; font-size:0.86rem; color:var(--muted);}
+  .catalog-card ul li{padding-left:14px; border-left:1px solid var(--line);}
+  .catalog-card .spacer{flex:1;}
+
+  /* ---------- ESTADO (tabs) ---------- */
+  .tabs{display:flex; gap:8px; margin-bottom:28px; flex-wrap:wrap;}
+  .tab-btn{
+    background:transparent; border:1px solid var(--line); color:var(--muted);
+    padding:8px 16px; border-radius:var(--radius); font-family:'IBM Plex Mono',monospace;
+    font-size:0.82rem; cursor:pointer;
+  }
+  .tab-btn.active{border-color:var(--amber); color:var(--ink);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
   .compare{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
   @media (max-width:720px){ .compare{grid-template-columns:1fr;} }
   .compare-col{background:var(--bg-panel); padding:24px;}
-  .compare-col h3{
+  .compare-col h4{
     font-family:'IBM Plex Mono',monospace; font-size:0.85rem; margin:0 0 16px;
     display:flex; align-items:center; gap:8px;
   }
-  .compare-col.live h3{color:var(--teal);}
-  .compare-col.soon h3{color:var(--amber);}
+  .compare-col.live h4{color:var(--teal);}
+  .compare-col.soon h4{color:var(--amber);}
   .compare-col ul{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
   .compare-col li{padding-left:16px; border-left:1px solid var(--line); font-size:0.92rem; color:var(--ink);}
   .compare-col li span{display:block; color:var(--muted); font-size:0.83rem; margin-top:2px;}
-
-  /* services */
-  .services{display:grid; gap:1px; background:var(--line); border:1px solid var(--line);}
-  .service{background:var(--bg-panel); padding:22px 24px; display:grid; grid-template-columns:200px 1fr; gap:20px; align-items:start;}
-  @media (max-width:720px){ .service{grid-template-columns:1fr; gap:6px;} }
-  .service h4{margin:0; font-size:1.02rem; font-weight:700;}
-  .service p{margin:0; color:var(--muted); font-size:0.92rem; max-width:60ch;}
-  .service .note{margin-top:8px; color:var(--teal); font-family:'IBM Plex Mono',monospace; font-size:0.76rem;}
 
   /* contact */
   .contact-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px;}
@@ -162,7 +179,7 @@
   [data-i18n-en]{display:none;}
   html[data-lang="en"] [data-i18n-en]{display:inherit;}
   html[data-lang="en"] [data-i18n-es]{display:none;}
-  html[data-lang="en"] .service{display:grid;}
+  html[data-lang="en"] .service, html[data-lang="en"] .catalog-card{display:flex;}
 </style>
 </head>
 <body>
@@ -171,11 +188,9 @@
   <div class="headbar wrap">
     <div class="brand">PESCATA<span class="dot">·</span>DEV</div>
     <nav class="navlinks">
-      <a href="#estado" data-i18n-es>Estado del proyecto</a><a href="#estado" data-i18n-en>Project status</a>
-      <a href="#servicios" data-i18n-es>Servicios</a><a href="#servicios" data-i18n-en>Services</a>
+      <a href="#catalogo" data-i18n-es>Catálogo</a><a href="#catalogo" data-i18n-en>Catalog</a>
+      <a href="#estado" data-i18n-es>Estado</a><a href="#estado" data-i18n-en>Status</a>
       <a href="#contacto" data-i18n-es>Contacto</a><a href="#contacto" data-i18n-en>Contact</a>
-      <a class="btn btn-ghost" href="https://arma-reforger-panel.onrender.com" target="_blank" rel="noopener" style="padding:8px 14px;" data-i18n-es>Abrir el Panel</a>
-      <a class="btn btn-ghost" href="https://arma-reforger-panel.onrender.com" target="_blank" rel="noopener" style="padding:8px 14px;" data-i18n-en>Open the Panel</a>
     </nav>
     <div class="langtoggle">
       <button id="btn-es" class="active">ES</button>
@@ -188,30 +203,30 @@
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow"><span class="pulse"></span>
-        <span data-i18n-es>servidor tercio fantasma — monitor activo</span>
-        <span data-i18n-en>tercio fantasma server — monitor active</span>
+        <span data-i18n-es>construido y probado sobre servidor propio</span>
+        <span data-i18n-en>built and tested on my own server</span>
       </div>
       <h1>
-        <span data-i18n-es>Construyo las herramientas que hacen falta para llevar un servidor de Arma Reforger en serio.</span>
-        <span data-i18n-en>I build the tools it takes to run a serious Arma Reforger server.</span>
+        <span data-i18n-es>Panel, Discord y modelos 3D para tu servidor de Arma Reforger.</span>
+        <span data-i18n-en>Panel, Discord and 3D models for your Arma Reforger server.</span>
       </h1>
       <p class="lead">
-        <span data-i18n-es>Paneles web, monitorización en vivo por Discord, y modelado 3D preparado para Workbench. Nace de necesitarlo para mi propio servidor — ahora también lo desarrollo para otros.</span>
-        <span data-i18n-en>Web panels, live Discord monitoring, and 3D models prepped for Workbench. Born from needing it for my own server — now I build it for others too.</span>
+        <span data-i18n-es>Ya sea un servidor dedicado o alquilado (Nitrado, GTX y similares). Nace de necesitarlo para el mío propio — ahora lo desarrollo también para otras comunidades.</span>
+        <span data-i18n-en>Whether it's a dedicated server or a rented one (Nitrado, GTX and similar). Born from needing it for my own — now I build it for other communities too.</span>
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://arma-reforger-panel.onrender.com" target="_blank" rel="noopener">
-          <span data-i18n-es>Ver el panel en vivo</span><span data-i18n-en>See the live panel</span>
+        <a class="btn btn-primary" href="#catalogo">
+          <span data-i18n-es>Ver el catálogo</span><span data-i18n-en>See the catalog</span>
         </a>
         <a class="btn btn-ghost" href="#contacto">
-          <span data-i18n-es>Encargar un proyecto</span><span data-i18n-en>Commission a project</span>
+          <span data-i18n-es>Hablamos por Discord</span><span data-i18n-en>Talk on Discord</span>
         </a>
       </div>
     </div>
 
     <div class="hud">
       <div class="hud-top">
-        <span data-i18n-es>tf arma reforger monitor</span><span data-i18n-en>tf arma reforger monitor</span>
+        <span data-i18n-es>panel · sistema en vivo</span><span data-i18n-en>panel · system live</span>
         <span class="live">● <span data-i18n-es>online</span><span data-i18n-en>online</span></span>
       </div>
       <div class="hud-body">
@@ -219,10 +234,50 @@
         <div class="hud-row"><span class="k" data-i18n-es>Jugadores</span><span class="k" data-i18n-en>Players</span><span class="v">18 / 64</span></div>
         <div class="hud-row"><span class="k" data-i18n-es>Mapa</span><span class="k" data-i18n-en>Map</span><span class="v">Everon</span></div>
         <div class="hud-feed">
-          <div><span class="tag">CONN</span> pescata <span data-i18n-es>conectado</span><span data-i18n-en>connected</span> · ID: 6C21…</div>
+          <div><span class="tag">CONN</span> <span data-i18n-es>jugador conectado</span><span data-i18n-en>player connected</span> · ID: 6C21…</div>
           <div><span class="tag kill">KILL</span> Delta_04 → Kappa_11 · 214m</div>
-          <div><span class="tag adm">ADMIN</span> grupocriptominer <span data-i18n-es>inició sesión</span><span data-i18n-en>signed in</span></div>
+          <div><span class="tag adm">ADMIN</span> <span data-i18n-es>admin inició sesión</span><span data-i18n-en>admin signed in</span></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catalogo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="k" data-i18n-es>// CATÁLOGO</span><span class="k" data-i18n-en>// CATALOG</span>
+      <h2><span data-i18n-es>Elige lo que necesitas</span><span data-i18n-en>Pick what you need</span></h2>
+      <p><span data-i18n-es>Registro y contratación llegan pronto directamente aquí. Mientras tanto, apúntate por Discord para que te avise en cuanto abra.</span><span data-i18n-en>Sign-up and checkout are coming straight to this page. In the meantime, join on Discord to get notified when it opens.</span></p>
+    </div>
+
+    <div class="catalog-grid">
+      <div class="catalog-card">
+        <h3><span data-i18n-es>Sistema</span><span data-i18n-en>System</span> <span class="status" data-i18n-es>EN DESARROLLO</span><span class="status" data-i18n-en>IN DEVELOPMENT</span></h3>
+        <p><span data-i18n-es>Panel web con Discord integrado para administrar tu servidor: jugadores, moderación y estado en vivo.</span><span data-i18n-en>Web panel with integrated Discord to run your server: players, moderation and live status.</span></p>
+        <ul>
+          <li><span data-i18n-es>Para servidor dedicado o alquilado (Nitrado, GTX, etc.)</span><span data-i18n-en>For dedicated or rented servers (Nitrado, GTX, etc.)</span></li>
+          <li><span data-i18n-es>Se activa por los días que contrates</span><span data-i18n-en>Activated for the days you purchase</span></li>
+        </ul>
+        <div class="spacer"></div>
+        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Avísame</span><span data-i18n-en>Notify me</span></a>
+      </div>
+
+      <div class="catalog-card">
+        <h3><span data-i18n-es>Modelos 3D</span><span data-i18n-en>3D Models</span> <span class="status" data-i18n-es>PRÓXIMAMENTE</span><span class="status" data-i18n-en>COMING SOON</span></h3>
+        <p><span data-i18n-es>Vehículos, armas y edificios preparados para Workbench. Galería con imágenes en la web; el archivo (fbx, texturas) se entrega tras el pago.</span><span data-i18n-en>Vehicles, weapons and buildings ready for Workbench. Image gallery on the site; the file (fbx, textures) is delivered after payment.</span></p>
+        <ul>
+          <li><span data-i18n-es>Catálogo en preparación</span><span data-i18n-en>Catalog in progress</span></li>
+        </ul>
+        <div class="spacer"></div>
+        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Avísame</span><span data-i18n-en>Notify me</span></a>
+      </div>
+
+      <div class="catalog-card">
+        <h3><span data-i18n-es>Personalizado</span><span data-i18n-en>Custom</span></h3>
+        <p><span data-i18n-es>¿Necesitas algo que no está en el catálogo? Cuéntamelo por Discord y te guío con unas preguntas cortas para concretarlo.</span><span data-i18n-en>Need something not in the catalog? Tell me on Discord and I'll walk you through a few quick questions to nail it down.</span></p>
+        <div class="spacer"></div>
+        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Ir a Discord</span><span data-i18n-en>Go to Discord</span></a>
       </div>
     </div>
   </div>
@@ -233,68 +288,63 @@
     <div class="sec-head">
       <span class="k" data-i18n-es>// ESTADO REAL, SIN HUMO</span><span class="k" data-i18n-en>// REAL STATUS, NO SMOKE</span>
       <h2><span data-i18n-es>Lo que ya funciona — y lo que está en camino</span><span data-i18n-en>What already works — and what's on its way</span></h2>
-      <p><span data-i18n-es>Esto no es una lista de ventas. Es exactamente lo que hay hoy en el servidor de Tercio Fantasma.</span><span data-i18n-en>This isn't a sales list. It's exactly what's running today on the Tercio Fantasma server.</span></p>
+      <p><span data-i18n-es>Estado real de cada pieza, no una lista de ventas. Elige un proyecto para ver el detalle.</span><span data-i18n-en>The real status of each piece, not a sales list. Pick a project to see the detail.</span></p>
     </div>
 
-    <div class="compare">
-      <div class="compare-col live">
-        <h3>● <span data-i18n-es>EN PRODUCCIÓN</span><span data-i18n-en>LIVE NOW</span></h3>
-        <ul>
-          <li><span data-i18n-es>Ranking público de jugadores</span><span data-i18n-en>Public player leaderboard</span>
-            <span data-i18n-es>bajas, muertes, tiempo jugado y ratio K/D por jugador</span><span data-i18n-en>kills, deaths, playtime and K/D ratio per player</span></li>
-          <li><span data-i18n-es>Discord multicanal</span><span data-i18n-en>Multi-channel Discord</span>
-            <span data-i18n-es>combate, conexiones, fuego amigo, estado del servidor y acciones de admin, cada uno en su canal</span><span data-i18n-en>combat, connections, friendly fire, server status and admin actions, each in its own channel</span></li>
-          <li><span data-i18n-es>Detalle de cada baja</span><span data-i18n-en>Per-kill detail</span>
-            <span data-i18n-es>distancia, tipo de daño y zona de impacto</span><span data-i18n-en>distance, damage type and hit zone</span></li>
-          <li><span data-i18n-es>Filtro de ruido de mods de terceros</span><span data-i18n-en>Third-party mod noise filter</span>
-            <span data-i18n-es>los fallos conocidos de otros addons no generan alertas falsas</span><span data-i18n-en>known faults in other addons don't trigger false alerts</span></li>
-        </ul>
-      </div>
-      <div class="compare-col soon">
-        <h3>◐ <span data-i18n-es>EN DESARROLLO</span><span data-i18n-en>IN DEVELOPMENT</span></h3>
-        <ul>
-          <li><span data-i18n-es>Consola RCON protegida</span><span data-i18n-en>Protected RCON console</span>
-            <span data-i18n-es>comandos con lista blanca desde el propio panel</span><span data-i18n-en>whitelisted commands from the panel itself</span></li>
-          <li><span data-i18n-es>Auditoría de Game Master</span><span data-i18n-en>Game Master audit</span>
-            <span data-i18n-es>quién abre el editor y qué crea o elimina</span><span data-i18n-en>who opens the editor and what they create or delete</span></li>
-          <li><span data-i18n-es>Reinicios programados</span><span data-i18n-en>Scheduled restarts</span>
-            <span data-i18n-es>con aviso previo a los jugadores conectados</span><span data-i18n-en>with advance warning to connected players</span></li>
-          <li><span data-i18n-es>Gestión de baneos desde el panel</span><span data-i18n-en>Ban management from the panel</span>
-            <span data-i18n-es>expulsión y baneo con motivo e historial</span><span data-i18n-en>kicks and bans with reason and history</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="servicios">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="k" data-i18n-es>// CATÁLOGO</span><span class="k" data-i18n-en>// CATALOG</span>
-      <h2><span data-i18n-es>Trabajo por encargo</span><span data-i18n-en>Work for hire</span></h2>
-      <p><span data-i18n-es>Lo que cobro es el trabajo, no el resultado: los mods y modelos que hago para la comunidad son gratuitos.</span><span data-i18n-en>What I charge for is the work, not the result: the mods and models I make for the community are free.</span></p>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="sistema"><span data-i18n-es>Sistema (panel)</span><span data-i18n-en>System (panel)</span></button>
+      <button class="tab-btn" data-tab="modelos"><span data-i18n-es>Modelos 3D</span><span data-i18n-en>3D Models</span></button>
     </div>
 
-    <div class="services">
-      <div class="service">
-        <h4><span data-i18n-es>Vehículos y armamento para Reforger</span><span data-i18n-en>Vehicles &amp; weapons for Reforger</span></h4>
-        <div>
-          <p><span data-i18n-es>Preparación completa de un modelo 3D para Workbench: escala, pivotes, colisiones, LODs, armature y piezas móviles listas para animar.</span><span data-i18n-en>Full prep of a 3D model for Workbench: scale, pivots, collisions, LODs, armature and movable parts ready to animate.</span></p>
-          <div class="note" data-i18n-es>el modelo final es gratis · se cobra la preparación</div>
-          <div class="note" data-i18n-en>the final model is free · the prep work is paid</div>
+    <div class="tab-panel active" id="tab-sistema">
+      <div class="compare">
+        <div class="compare-col live">
+          <h4>● <span data-i18n-es>EN PRODUCCIÓN</span><span data-i18n-en>LIVE NOW</span></h4>
+          <ul>
+            <li><span data-i18n-es>Ranking de jugadores</span><span data-i18n-en>Player leaderboard</span>
+              <span data-i18n-es>bajas, muertes, tiempo jugado y ratio K/D</span><span data-i18n-en>kills, deaths, playtime and K/D ratio</span></li>
+            <li><span data-i18n-es>Discord multicanal</span><span data-i18n-en>Multi-channel Discord</span>
+              <span data-i18n-es>combate, conexiones, fuego amigo, estado del servidor y acciones de admin, cada uno en su canal</span><span data-i18n-en>combat, connections, friendly fire, server status and admin actions, each in its own channel</span></li>
+            <li><span data-i18n-es>Detalle de cada baja</span><span data-i18n-en>Per-kill detail</span>
+              <span data-i18n-es>distancia, tipo de daño y zona de impacto</span><span data-i18n-en>distance, damage type and hit zone</span></li>
+            <li><span data-i18n-es>Detección de caídas 24/7</span><span data-i18n-en>24/7 crash detection</span>
+              <span data-i18n-es>errores de red y fallos de persistencia, con filtro de ruido de mods de terceros</span><span data-i18n-en>network errors and persistence failures, filtering out noise from third-party mods</span></li>
+          </ul>
+        </div>
+        <div class="compare-col soon">
+          <h4>◐ <span data-i18n-es>EN DESARROLLO</span><span data-i18n-en>IN DEVELOPMENT</span></h4>
+          <ul>
+            <li><span data-i18n-es>Consola RCON protegida</span><span data-i18n-en>Protected RCON console</span>
+              <span data-i18n-es>comandos con lista blanca desde el propio panel</span><span data-i18n-en>whitelisted commands from the panel itself</span></li>
+            <li><span data-i18n-es>Auditoría de Game Master</span><span data-i18n-en>Game Master audit</span>
+              <span data-i18n-es>quién abre el editor y qué crea o elimina</span><span data-i18n-en>who opens the editor and what they create or delete</span></li>
+            <li><span data-i18n-es>Reinicios programados</span><span data-i18n-en>Scheduled restarts</span>
+              <span data-i18n-es>con aviso previo a los jugadores conectados</span><span data-i18n-en>with advance warning to connected players</span></li>
+            <li><span data-i18n-es>Registro, pago y activación por días</span><span data-i18n-en>Sign-up, payment and day-based activation</span>
+              <span data-i18n-es>flujo de contratación desde esta misma web</span><span data-i18n-en>checkout flow right from this site</span></li>
+          </ul>
         </div>
       </div>
-      <div class="service">
-        <h4><span data-i18n-es>Paneles y bots de Discord a medida</span><span data-i18n-en>Custom panels &amp; Discord bots</span></h4>
-        <p><span data-i18n-es>Igual que el panel de Tercio Fantasma, pero ajustado a tu servidor: rankings, alertas y estadísticas propias.</span><span data-i18n-en>Same as the Tercio Fantasma panel, tailored to your server: your own rankings, alerts and stats.</span></p>
-      </div>
-      <div class="service">
-        <h4><span data-i18n-es>Monitorización de servidor</span><span data-i18n-en>Server monitoring</span></h4>
-        <p><span data-i18n-es>El mismo sistema que corre 24/7 en Tercio Fantasma: detecta caídas, errores de red y fallos de persistencia antes de que los reporten los jugadores.</span><span data-i18n-en>The same system running 24/7 on Tercio Fantasma: catches crashes, network errors and persistence failures before players report them.</span></p>
-      </div>
-      <div class="service">
-        <h4><span data-i18n-es>Terrenos y mapas</span><span data-i18n-en>Terrains &amp; maps</span></h4>
-        <p><span data-i18n-es>Procesado de heightmaps reales en QGIS y ajuste en Workbench para terrenos personalizados.</span><span data-i18n-en>Real heightmap processing in QGIS, tuned in Workbench for custom terrains.</span></p>
+    </div>
+
+    <div class="tab-panel" id="tab-modelos">
+      <div class="compare">
+        <div class="compare-col live">
+          <h4>● <span data-i18n-es>EN PRODUCCIÓN</span><span data-i18n-en>LIVE NOW</span></h4>
+          <ul>
+            <li><span data-i18n-es>Preparación de modelos para Workbench</span><span data-i18n-en>Model prep for Workbench</span>
+              <span data-i18n-es>escala, pivotes, colisiones, LODs, armature y piezas móviles</span><span data-i18n-en>scale, pivots, collisions, LODs, armature and movable parts</span></li>
+          </ul>
+        </div>
+        <div class="compare-col soon">
+          <h4>◐ <span data-i18n-es>EN DESARROLLO</span><span data-i18n-en>IN DEVELOPMENT</span></h4>
+          <ul>
+            <li><span data-i18n-es>Galería pública en la web</span><span data-i18n-en>Public gallery on the site</span>
+              <span data-i18n-es>imágenes por modelo, con descarga tras el pago</span><span data-i18n-en>images per model, download after payment</span></li>
+            <li><span data-i18n-es>Primeros modelos del catálogo</span><span data-i18n-en>First models in the catalog</span>
+              <span data-i18n-es>vehículos y armamento en preparación</span><span data-i18n-en>vehicles and weapons in progress</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -310,12 +360,11 @@
       </div>
     </div>
     <div class="contact-card">
-      <h3 data-i18n-es>Canales</h3><h3 data-i18n-en>Channels</h3>
-      <p><span data-i18n-es>Respondo primero por Discord.</span><span data-i18n-en>I answer on Discord first.</span></p>
+      <h3 data-i18n-es>Discord</h3><h3 data-i18n-en>Discord</h3>
+      <p><span data-i18n-es>Respondo por Discord — únete al canal dedicado a esto.</span><span data-i18n-en>I answer on Discord — join the channel for this.</span></p>
       <div class="linklist">
-        <a href="https://github.com/pescata86" target="_blank" rel="noopener">GitHub <span class="arrow">→</span></a>
-        <a href="https://arma-reforger-panel.onrender.com" target="_blank" rel="noopener">
-          <span data-i18n-es>Panel de Tercio Fantasma</span><span data-i18n-en>Tercio Fantasma Panel</span> <span class="arrow">→</span>
+        <a href="#" id="discord-link" target="_blank" rel="noopener">
+          <span data-i18n-es>Unirme al Discord</span><span data-i18n-en>Join the Discord</span> <span class="arrow">→</span>
         </a>
       </div>
     </div>
@@ -325,8 +374,8 @@
 <footer>
   <div class="wrap">
     <span>© 2026 Pescata Dev</span>
-    <span class="mono" data-i18n-es>hecho para Tercio Fantasma</span>
-    <span class="mono" data-i18n-en>built for Tercio Fantasma</span>
+    <span class="mono" data-i18n-es>panel, Discord y modelos 3D para Arma Reforger</span>
+    <span class="mono" data-i18n-en>panel, Discord and 3D models for Arma Reforger</span>
   </div>
 </footer>
 
@@ -347,6 +396,20 @@
     const saved = localStorage.getItem('pescata_lang');
     if(saved) setLang(saved);
   }catch(e){}
+
+  // TODO: sustituir por el enlace real de invitación a Discord
+  document.getElementById('discord-link').href = 'https://discord.gg/PENDIENTE';
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
 </script>
 
 </body>
