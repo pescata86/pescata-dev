@@ -1,0 +1,15 @@
+{
+  "name": "pescata-dev",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web/tienda Pescata Dev",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
