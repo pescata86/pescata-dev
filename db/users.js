@@ -1,24 +1,56 @@
-// Store de usuarios en memoria: SOLO como placeholder de arranque.
-// Se pierde al reiniciar el servicio. Antes de tener clientes reales hay que
-// sustituir esto por una tabla en Postgres (Render Postgres, por ejemplo) y
-// usar DATABASE_URL. La forma de los objetos (id, email, passwordHash,
-// createdAt) es la que deberia tener esa tabla.
+// Acceso a usuarios. Si hay DATABASE_URL usa Postgres de verdad; si no,
+// cae a un array en memoria (solo para poder arrancar en local sin BD).
+// La forma de los objetos que devuelve es siempre la misma:
+//   { id, email, passwordHash, createdAt }
 
-const users = [];
-let nextId = 1;
+const { pool } = require('./pool');
 
-function findByEmail(email) {
-  return users.find(u => u.email.toLowerCase() === String(email).toLowerCase());
+// --- Fallback en memoria (sin DATABASE_URL) ---
+const memoryUsers = [];
+let nextMemoryId = 1;
+
+function memoryFindByEmail(email) {
+  return memoryUsers.find(u => u.email.toLowerCase() === String(email).toLowerCase());
 }
-
-function createUser({ email, passwordHash }) {
-  const user = { id: nextId++, email, passwordHash, createdAt: new Date().toISOString() };
-  users.push(user);
+function memoryCreateUser({ email, passwordHash }) {
+  const user = { id: nextMemoryId++, email, passwordHash, createdAt: new Date().toISOString() };
+  memoryUsers.push(user);
   return user;
 }
-
-function findById(id) {
-  return users.find(u => u.id === id);
+function memoryFindById(id) {
+  return memoryUsers.find(u => u.id === id);
 }
 
-module.exports = { findByEmail, createUser, findById };
+// --- Postgres real ---
+function rowToUser(row) {
+  if (!row) return undefined;
+  return { id: row.id, email: row.email, passwordHash: row.password_hash, createdAt: row.created_at };
+}
+
+async function pgFindByEmail(email) {
+  const { rows } = await pool.query('SELECT * FROM users WHERE lower(email) = lower($1)', [email]);
+  return rowToUser(rows[0]);
+}
+async function pgCreateUser({ email, passwordHash }) {
+  const { rows } = await pool.query(
+    'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING *',
+    [email, passwordHash]
+  );
+  return rowToUser(rows[0]);
+}
+async function pgFindById(id) {
+  const { rows } = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+  return rowToUser(rows[0]);
+}
+
+const usingPostgres = Boolean(pool);
+if (!usingPostgres) {
+  console.warn('[db/users] DATABASE_URL no esta definida: usando almacenamiento en memoria (se pierde al reiniciar). Solo valido para desarrollo local.');
+}
+
+module.exports = {
+  usingPostgres,
+  findByEmail: usingPostgres ? pgFindByEmail : memoryFindByEmail,
+  createUser: usingPostgres ? pgCreateUser : memoryCreateUser,
+  findById: usingPostgres ? pgFindById : memoryFindById,
+};

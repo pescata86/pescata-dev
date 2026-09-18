@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 
+const { ensureSchema } = require('./db/pool');
 const authRouter = require('./routes/auth');
 const checkoutRouter = require('./routes/checkout');
 
@@ -37,6 +38,10 @@ app.get('/healthz', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-app.listen(PORT, () => {
-  console.log(`pescata-dev escuchando en el puerto ${PORT}`);
-});
+ensureSchema()
+  .catch(err => console.error('No se pudo preparar el esquema de la base de datos:', err))
+  .finally(() => {
+    app.listen(PORT, () => {
+      console.log(`pescata-dev escuchando en el puerto ${PORT}`);
+    });
+  });
