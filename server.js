@@ -1,13 +1,33 @@
-// Servidor web para pescata-dev.
-// De momento solo sirve el sitio estatico (index.html y assets), pero al ser
-// un web service (no un static site) ya queda listo para anadir encima las
-// rutas de auth, catalogo dinamico y pagos (Stripe) sin volver a migrar nada.
+require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+
+const authRouter = require('./routes/auth');
+const checkoutRouter = require('./routes/checkout');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// El webhook de Stripe necesita el body en crudo, asi que se monta ANTES
+// del express.json() global (ver routes/checkout.js, usa express.raw ahi mismo).
+app.use('/api/checkout/webhook', express.raw({ type: 'application/json' }));
+
+app.use(express.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'dev-secret-cambiar-en-produccion',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
+  },
+}));
+
+app.use('/api/auth', authRouter);
+app.use('/api/checkout', checkoutRouter);
 
 // Sirve todos los ficheros estaticos de la raiz del repo (index.html, css, js, imagenes...)
 app.use(express.static(path.join(__dirname), { extensions: ['html'] }));
@@ -16,11 +36,6 @@ app.use(express.static(path.join(__dirname), { extensions: ['html'] }));
 app.get('/healthz', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
-
-// A partir de aqui se iran anadiendo las rutas de la tienda:
-//   app.use('/api/auth', authRouter);
-//   app.use('/api/checkout', checkoutRouter);
-//   app.use('/api/catalogo', catalogoRouter);
 
 app.listen(PORT, () => {
   console.log(`pescata-dev escuchando en el puerto ${PORT}`);
