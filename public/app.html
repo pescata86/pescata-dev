@@ -1,0 +1,172 @@
+<div id='app' hidden>
+
+  <div class='app-bar'>
+    <button class='icon-btn' id='app-menu' type='button' aria-controls='app-drawer' aria-expanded='false'>☰ <span data-i18n-es>Menú</span><span data-i18n-en>Menu</span></button>
+    <div class='brand'>PESCATA<span class='dot'>·</span>DEV</div>
+    <div class='grow'></div>
+    <span class='app-who' id='app-who'></span>
+    <div class='langtoggle'>
+      <button data-setlang='es' class='active' type='button'>ES</button>
+      <button data-setlang='en' type='button'>EN</button>
+    </div>
+  </div>
+
+  <div class='app-scrim' id='app-scrim'></div>
+
+  <aside class='app-drawer' id='app-drawer'>
+    <nav class='nav-list'>
+      <button class='nav-btn' type='button' data-view='catalogo'><span data-i18n-es>Catálogo</span><span data-i18n-en>Catalog</span></button>
+      <button class='nav-btn' type='button' data-view='perfil'><span data-i18n-es>Perfil</span><span data-i18n-en>Profile</span></button>
+      <button class='nav-btn' type='button' data-view='historial'><span data-i18n-es>Historial</span><span data-i18n-en>History</span></button>
+      <button class='nav-btn' type='button' data-view='soporte'><span data-i18n-es>Soporte</span><span data-i18n-en>Support</span></button>
+    </nav>
+    <nav class='nav-group' id='nav-admin' hidden>
+      <span class='nav-k'>// ADMIN</span>
+      <button class='nav-btn' type='button' data-view='adm-clientes'>Clientes</button>
+      <button class='nav-btn' type='button' data-view='adm-contratos'>Contratos</button>
+      <button class='nav-btn' type='button' data-view='adm-tickets'>Tickets</button>
+    </nav>
+    <div class='drawer-foot'>
+      <button class='btn btn-ghost btn-sm' type='button' id='app-logout'><span data-i18n-es>Cerrar sesión</span><span data-i18n-en>Log out</span></button>
+    </div>
+  </aside>
+
+  <main class='app-main'>
+
+    <div class='app-view' id='view-catalogo'>
+      <div class='sec-head'>
+        <span class='k' data-i18n-es>// CATÁLOGO</span><span class='k' data-i18n-en>// CATALOG</span>
+        <h2><span data-i18n-es>Elige lo que necesitas</span><span data-i18n-en>Pick what you need</span></h2>
+        <p><span data-i18n-es>Cada trabajo es distinto y el precio depende de lo que pidas. Para el presupuesto, escríbeme por Discord y te lo paso sin compromiso.</span><span data-i18n-en>Every job is different and the price depends on what you need. For a quote, message me on Discord and I will get back to you with no strings attached.</span></p>
+      </div>
+      <div class='catalog-grid'>
+        <div class='catalog-card'>
+          <h3><span data-i18n-es>Modelos 3D</span><span data-i18n-en>3D Models</span> <span class='status' data-i18n-es>PRESUPUESTO</span><span class='status' data-i18n-en>QUOTE-BASED</span></h3>
+          <p><span data-i18n-es>Vehículos, armamento y otros modelos preparados desde Blender y listos para exportar a Workbench.</span><span data-i18n-en>Vehicles, weapons and other models prepared in Blender and ready to export to Workbench.</span></p>
+          <ul>
+            <li><span data-i18n-es>Parte de Blender ya resuelta: escala, pivotes, colisiones, LODs, armature</span><span data-i18n-en>Blender side already done: scale, pivots, collisions, LODs, armature</span></li>
+            <li><span data-i18n-es>Galería con imágenes en preparación</span><span data-i18n-en>Image gallery in progress</span></li>
+          </ul>
+          <div class='spacer'></div>
+          <a class='btn btn-ghost btn-sm' href='https://discord.gg/zA6CVUbYD' target='_blank' rel='noopener'><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
+        </div>
+        <div class='catalog-card'>
+          <h3><span data-i18n-es>Sistema (panel)</span><span data-i18n-en>System (panel)</span> <span class='status' data-i18n-es>EN PRUEBAS</span><span class='status' data-i18n-en>IN TESTING</span></h3>
+          <p><span data-i18n-es>Panel web con Discord integrado para administrar tu servidor: jugadores, moderación y estado en vivo. Ahora mismo lo estoy probando en mi propio servidor dedicado.</span><span data-i18n-en>Web panel with integrated Discord to run your server: players, moderation and live status. Right now I am testing it on my own dedicated server.</span></p>
+          <ul>
+            <li><span data-i18n-es>Se alquilará por días, para servidor dedicado o de alquiler (Nitrado, GTX, etc.)</span><span data-i18n-en>Will be rented by days, for dedicated or rented servers (Nitrado, GTX, etc.)</span></li>
+          </ul>
+          <div class='spacer'></div>
+          <a class='btn btn-ghost btn-sm' href='https://discord.gg/zA6CVUbYD' target='_blank' rel='noopener'><span data-i18n-es>Avísame</span><span data-i18n-en>Notify me</span></a>
+        </div>
+        <div class='catalog-card'>
+          <h3><span data-i18n-es>Páginas web</span><span data-i18n-en>Web pages</span> <span class='status' data-i18n-es>PRESUPUESTO</span><span class='status' data-i18n-en>QUOTE-BASED</span></h3>
+          <p><span data-i18n-es>Páginas web personalizadas para tu comunidad o servidor, como esta misma.</span><span data-i18n-en>Custom web pages for your community or server, like this one.</span></p>
+          <div class='spacer'></div>
+          <a class='btn btn-ghost btn-sm' href='https://discord.gg/zA6CVUbYD' target='_blank' rel='noopener'><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
+        </div>
+        <div class='catalog-card'>
+          <h3><span data-i18n-es>Bots de Discord y Telegram</span><span data-i18n-en>Discord & Telegram bots</span> <span class='status' data-i18n-es>PRESUPUESTO</span><span class='status' data-i18n-en>QUOTE-BASED</span></h3>
+          <p><span data-i18n-es>Bots a medida para moderación, notificaciones, pedidos o lo que necesite tu comunidad.</span><span data-i18n-en>Custom bots for moderation, notifications, orders, or whatever your community needs.</span></p>
+          <div class='spacer'></div>
+          <a class='btn btn-ghost btn-sm' href='https://discord.gg/zA6CVUbYD' target='_blank' rel='noopener'><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
+        </div>
+        <div class='catalog-card'>
+          <h3><span data-i18n-es>Mods y mantenimiento</span><span data-i18n-en>Mods & maintenance</span> <span class='status' data-i18n-es>PRESUPUESTO</span><span class='status' data-i18n-en>QUOTE-BASED</span></h3>
+          <p><span data-i18n-es>Desarrollo de mods y mantenimiento de servidores de Arma Reforger.</span><span data-i18n-en>Mod development and server maintenance for Arma Reforger.</span></p>
+          <div class='spacer'></div>
+          <a class='btn btn-ghost btn-sm' href='https://discord.gg/zA6CVUbYD' target='_blank' rel='noopener'><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
+        </div>
+        <div class='catalog-card'>
+          <h3><span data-i18n-es>Mapas</span><span data-i18n-en>Maps</span> <span class='status' data-i18n-es>PRESUPUESTO</span><span class='status' data-i18n-en>QUOTE-BASED</span></h3>
+          <p><span data-i18n-es>Creación de mapas para tu servidor.</span><span data-i18n-en>Map creation for your server.</span></p>
+          <div class='spacer'></div>
+          <a class='btn btn-ghost btn-sm' href='https://discord.gg/zA6CVUbYD' target='_blank' rel='noopener'><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
+        </div>
+        <div class='catalog-card'>
+          <h3><span data-i18n-es>Personalizado</span><span data-i18n-en>Custom</span></h3>
+          <p><span data-i18n-es>¿Necesitas algo que no está en el catálogo? Cuéntamelo por Discord y te guío con unas preguntas cortas para concretarlo.</span><span data-i18n-en>Need something not in the catalog? Tell me on Discord and I will walk you through a few quick questions to nail it down.</span></p>
+          <div class='spacer'></div>
+          <a class='btn btn-ghost btn-sm' href='https://discord.gg/zA6CVUbYD' target='_blank' rel='noopener'><span data-i18n-es>Ir a Discord</span><span data-i18n-en>Go to Discord</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class='app-view' id='view-perfil' hidden>
+      <div class='sec-head'>
+        <span class='k' data-i18n-es>// PERFIL</span><span class='k' data-i18n-en>// PROFILE</span>
+        <h2><span data-i18n-es>Tus datos</span><span data-i18n-en>Your details</span></h2>
+        <p><span data-i18n-es>Los datos con los que te registraste.</span><span data-i18n-en>The details you signed up with.</span></p>
+      </div>
+      <div id='perfil-body'></div>
+    </div>
+
+    <div class='app-view' id='view-historial' hidden>
+      <div class='sec-head'>
+        <span class='k' data-i18n-es>// HISTORIAL</span><span class='k' data-i18n-en>// HISTORY</span>
+        <h2><span data-i18n-es>Tus contrataciones</span><span data-i18n-en>Your services</span></h2>
+        <p><span data-i18n-es>Lo que has contratado, su estado y cuándo caduca.</span><span data-i18n-en>What you have hired, its status and when it expires.</span></p>
+      </div>
+      <div id='historial-body' class='stack'></div>
+    </div>
+
+    <div class='app-view' id='view-soporte' hidden>
+      <div class='sec-head'>
+        <span class='k' data-i18n-es>// SOPORTE</span><span class='k' data-i18n-en>// SUPPORT</span>
+        <h2><span data-i18n-es>¿Necesitas ayuda?</span><span data-i18n-en>Need help?</span></h2>
+        <p><span data-i18n-es>Abre un ticket y te responderé aquí mismo.</span><span data-i18n-en>Open a ticket and I will reply right here.</span></p>
+      </div>
+      <form class='card cform' id='tk-form' novalidate>
+        <div class='field'>
+          <label for='tk-subject'><span data-i18n-es>Asunto</span><span data-i18n-en>Subject</span></label>
+          <input id='tk-subject' type='text' maxlength='200' autocomplete='off'>
+        </div>
+        <div class='field'>
+          <label for='tk-message'><span data-i18n-es>Mensaje</span><span data-i18n-en>Message</span></label>
+          <textarea id='tk-message' rows='5' maxlength='4000'></textarea>
+        </div>
+        <p class='msg' id='tk-msg' role='status'></p>
+        <button class='btn btn-primary btn-sm' id='tk-send' type='submit'><span data-i18n-es>Enviar ticket</span><span data-i18n-en>Send ticket</span></button>
+      </form>
+      <h3 class='sub'><span data-i18n-es>Tus tickets</span><span data-i18n-en>Your tickets</span></h3>
+      <div id='soporte-list' class='stack'></div>
+    </div>
+
+    <div class='app-view' id='view-adm-clientes' hidden>
+      <div class='sec-head'>
+        <span class='k'>// ADMIN</span>
+        <h2>Clientes</h2>
+        <p>Todas las cuentas. Puedes verificar el email a mano y crear contratos.</p>
+      </div>
+      <div id='adm-clientes-body'></div>
+    </div>
+
+    <div class='app-view' id='view-adm-contratos' hidden>
+      <div class='sec-head'>
+        <span class='k'>// ADMIN</span>
+        <h2>Contratos</h2>
+        <p>Qué ha contratado cada cliente, su estado, caducidad, configuración y notas internas (el cliente no ve ni la configuración ni las notas).</p>
+      </div>
+      <div id='adm-contratos-body' class='stack'></div>
+      <datalist id='dl-products'>
+        <option value='Sistema (panel)'></option>
+        <option value='Modelos 3D'></option>
+        <option value='Páginas web'></option>
+        <option value='Bots de Discord y Telegram'></option>
+        <option value='Mods y mantenimiento'></option>
+        <option value='Mapas'></option>
+        <option value='Personalizado'></option>
+      </datalist>
+    </div>
+
+    <div class='app-view' id='view-adm-tickets' hidden>
+      <div class='sec-head'>
+        <span class='k'>// ADMIN</span>
+        <h2>Tickets</h2>
+        <p>Tickets de soporte de todos los clientes, los abiertos primero.</p>
+      </div>
+      <div id='adm-tickets-body' class='stack'></div>
+    </div>
+
+  </main>
+</div>

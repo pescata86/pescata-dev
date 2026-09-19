@@ -1,68 +1,36 @@
 <!DOCTYPE html>
-<html lang="es" data-lang="es">
+<html lang='es' data-lang='es'>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 <title>Pescata Dev — Herramientas para servidores Arma Reforger</title>
-<meta name="description" content="Panel web con Discord, modelos 3D y desarrollo a medida para servidores de Arma Reforger, dedicados o alquilados (Nitrado, GTX, etc).">
-<meta name="theme-color" content="#0b1220">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Pescata Dev — Herramientas para servidores Arma Reforger">
-<meta property="og:description" content="Panel web con Discord, modelos 3D y desarrollo a medida para servidores de Arma Reforger.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%230b1220'/%3E%3Cpath d='M10 25V7h8a5.5 5.5 0 010 11h-5' fill='none' stroke='%234da3ff' stroke-width='3'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name='description' content='Panel web con Discord, modelos 3D y desarrollo a medida para servidores de Arma Reforger, dedicados o alquilados (Nitrado, GTX, etc).'>
+<meta name='theme-color' content='#0b1220'>
+<meta property='og:type' content='website'>
+<meta property='og:title' content='Pescata Dev — Herramientas para servidores Arma Reforger'>
+<meta property='og:description' content='Panel web con Discord, modelos 3D y desarrollo a medida para servidores de Arma Reforger.'>
+<link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%230b1220'/%3E%3Cpath d='M10 25V7h8a5.5 5.5 0 010 11h-5' fill='none' stroke='%234da3ff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap' rel='stylesheet'>
 <style>
   :root{
-    /* Paleta azul. Los nombres --amber y --teal se mantienen por compatibilidad:
-       --amber = color de acento principal (azul), --teal = acento secundario (cian). */
-    --bg: #0b1220;
-    --bg-raised: #101a2e;
-    --bg-panel: #13203a;
-    --line: #24345a;
-    --ink: #e6edf7;
-    --muted: #8fa1bf;
-    --muted-2: #62759a;
-    --amber: #4da3ff;
-    --amber-dim: #2a5c99;
-    --teal: #5ce1e6;
-    --red: #c15b4a;
-    --radius: 3px;
-    --maxw: 1080px;
+    --bg:#0b1220; --bg-raised:#101a2e; --bg-panel:#13203a; --line:#24345a;
+    --ink:#e6edf7; --muted:#8fa1bf; --muted-2:#62759a;
+    --amber:#4da3ff; --amber-dim:#2a5c99; --teal:#5ce1e6; --red:#c15b4a;
+    --radius:3px; --maxw:1080px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    background-attachment: fixed;
-    background-position: -1px -1px;
-    color:var(--ink);
-    font-family:'Archivo', system-ui, sans-serif;
-    line-height:1.5;
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation:none !important; transition:none !important;}
-  }
+  body{margin:0; background:var(--bg); background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size:64px 64px; background-attachment:fixed; background-position:-1px -1px; color:var(--ink); font-family:'Archivo', system-ui, sans-serif; line-height:1.5;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none !important; transition:none !important;} }
   a{color:inherit;}
   :focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
   [hidden]{display:none !important;}
   .mono{font-family:'IBM Plex Mono', ui-monospace, monospace;}
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
 
-  /* ---------- HEADER ---------- */
-  header{
-    position:sticky; top:0; z-index:20;
-    background:rgba(11,18,32,0.88);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
+  header{position:sticky; top:0; z-index:20; background:rgba(11,18,32,0.88); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
   .headbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 24px;}
   .brand{display:flex; align-items:baseline; gap:10px; font-weight:800; font-size:1.05rem; letter-spacing:0.02em;}
   .brand .dot{color:var(--amber);}
@@ -71,38 +39,14 @@
   .navlinks a:hover{color:var(--ink); border-color:var(--amber);}
   .head-actions{display:flex; align-items:center; gap:12px;}
   .auth-group{display:flex; align-items:center; gap:8px;}
-  .langtoggle{
-    display:flex; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
-    font-family:'IBM Plex Mono',monospace; font-size:0.78rem;
-  }
-  .langtoggle button{
-    background:transparent; color:var(--muted); border:none; padding:6px 10px; cursor:pointer;
-  }
+  .langtoggle{display:flex; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; font-family:'IBM Plex Mono',monospace; font-size:0.78rem;}
+  .langtoggle button{background:transparent; color:var(--muted); border:none; padding:6px 10px; cursor:pointer;}
   .langtoggle button.active{background:var(--amber); color:#06111f; font-weight:600;}
-  @media (max-width:720px){
-    .navlinks{display:none;}
-    .hide-sm{display:none;}
-    .headbar{padding:12px 16px;}
-  }
+  @media (max-width:720px){ .navlinks{display:none;} .hide-sm{display:none;} .headbar{padding:12px 16px;} }
 
-  /* ---------- HERO ---------- */
   .hero{padding:76px 0 60px; border-bottom:1px solid var(--line);}
-  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;}
-  @media (max-width:880px){ .hero-grid{grid-template-columns:1fr;} }
-  .eyebrow{
-    color:var(--teal); font-family:'IBM Plex Mono',monospace; font-size:0.82rem;
-    display:flex; align-items:center; gap:8px; margin-bottom:18px;
-  }
-  .pulse{width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px rgba(92,225,230,0.18);}
-  h1{font-size:2.7rem; line-height:1.12; margin:0 0 20px; font-weight:800; max-width:15ch;}
-  @media (max-width:560px){ h1{font-size:2.05rem;} }
-  .hero p.lead{color:var(--muted); font-size:1.05rem; max-width:46ch; margin:0 0 30px;}
   .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
-  .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:12px 20px; border-radius:var(--radius); font-weight:600; font-size:0.94rem; font-family:inherit;
-    text-decoration:none; border:1px solid transparent; cursor:pointer;
-  }
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:var(--radius); font-weight:600; font-size:0.94rem; font-family:inherit; text-decoration:none; border:1px solid transparent; cursor:pointer;}
   .btn-primary{background:var(--amber); color:#06111f;}
   .btn-primary:hover{background:#7bbcff;}
   .btn-ghost{background:transparent; border-color:var(--line); color:var(--ink);}
@@ -111,81 +55,37 @@
   .btn-block{width:100%; justify-content:center;}
   .btn[disabled]{opacity:0.6; cursor:wait;}
 
-  /* ---------- MOCK HUD PANEL ---------- */
-  .hud{
-    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
-    font-family:'IBM Plex Mono',monospace; font-size:0.82rem;
-    box-shadow:0 20px 50px -20px rgba(0,0,0,0.6);
-  }
-  .hud-top{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:10px 14px; border-bottom:1px solid var(--line); color:var(--muted); font-size:0.74rem;
-  }
-  .hud-top .live{color:var(--teal);}
-  .hud-body{padding:16px; display:grid; gap:10px;}
-  .hud-row{display:flex; justify-content:space-between; gap:12px; padding:8px 10px; background:var(--bg-raised); border-radius:2px; border-left:2px solid var(--line);}
-  .hud-row.hl{border-left-color:var(--amber);}
-  .hud-row .k{color:var(--muted);}
-  .hud-row .v{color:var(--ink); font-weight:600;}
-  .hud-feed{border-top:1px solid var(--line); margin-top:4px; padding-top:12px; display:grid; gap:7px; font-size:0.76rem; color:var(--muted);}
-  .hud-feed .tag{color:var(--teal);}
-  .hud-feed .tag.kill{color:var(--red);}
-  .hud-feed .tag.adm{color:var(--amber);}
-
-  /* ---------- SECTIONS ---------- */
   section{padding:64px 0; border-bottom:1px solid var(--line); scroll-margin-top:60px;}
   .sec-head{max-width:56ch; margin-bottom:38px;}
   .sec-head .k{font-family:'IBM Plex Mono',monospace; color:var(--muted); font-size:0.8rem; margin-bottom:8px; display:block;}
   h2{font-size:1.7rem; margin:0 0 10px; font-weight:700;}
   .sec-head p{color:var(--muted); margin:0; font-size:0.98rem;}
-  .sec-head p strong{color:var(--ink); font-weight:600; word-break:break-all;}
 
-  /* ---------- CUENTA ---------- */
-  .acc-grid{display:grid; grid-template-columns:0.8fr 1.2fr; gap:1px; background:var(--line); border:1px solid var(--line);}
-  @media (max-width:760px){ .acc-grid{grid-template-columns:1fr;} }
-  .acc-card{background:var(--bg-panel); padding:26px; display:flex; flex-direction:column; gap:18px;}
-  .acc-card h3{margin:0; font-size:1.05rem; font-weight:700;}
-  .acc-card dl{margin:0; display:grid; gap:14px;}
-  .acc-card dt{color:var(--muted); font-size:0.82rem;}
-  .acc-card dd{margin:2px 0 0; font-weight:600; word-break:break-all;}
-  .acc-card .btn{align-self:flex-start;}
   .empty-state{display:grid; gap:10px; padding:18px; border:1px dashed var(--line); border-radius:var(--radius);}
   .empty-state strong{font-size:1rem;}
   .empty-state p{margin:0; color:var(--muted); font-size:0.92rem; max-width:52ch;}
-  .empty-state .btn{margin-top:6px;}
+  .empty-state .btn{margin-top:6px; justify-self:start;}
 
-  /* ---------- CATALOGO ---------- */
   .catalog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
   @media (max-width:860px){ .catalog-grid{grid-template-columns:1fr;} }
   .catalog-card{background:var(--bg-panel); padding:26px; display:flex; flex-direction:column; gap:14px;}
   .catalog-card h3{margin:0; font-size:1.08rem; font-weight:700; display:flex; align-items:center; flex-wrap:wrap; gap:10px;}
-  .catalog-card .status{
-    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.03em;
-    color:var(--amber); border:1px solid var(--amber-dim); border-radius:2px; padding:2px 7px; white-space:nowrap;
-  }
+  .catalog-card .status{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.03em; color:var(--amber); border:1px solid var(--amber-dim); border-radius:2px; padding:2px 7px; white-space:nowrap;}
   .catalog-card p{margin:0; color:var(--muted); font-size:0.9rem;}
   .catalog-card ul{list-style:none; margin:0; padding:0; display:grid; gap:7px; font-size:0.86rem; color:var(--muted);}
   .catalog-card ul li{padding-left:14px; border-left:1px solid var(--line);}
   .catalog-card .spacer{flex:1;}
   .catalog-card .btn{align-self:flex-start;}
 
-  /* ---------- ESTADO (tabs) ---------- */
   .tabs{display:flex; gap:8px; margin-bottom:28px; flex-wrap:wrap;}
-  .tab-btn{
-    background:transparent; border:1px solid var(--line); color:var(--muted);
-    padding:8px 16px; border-radius:var(--radius); font-family:'IBM Plex Mono',monospace;
-    font-size:0.82rem; cursor:pointer;
-  }
+  .tab-btn{background:transparent; border:1px solid var(--line); color:var(--muted); padding:8px 16px; border-radius:var(--radius); font-family:'IBM Plex Mono',monospace; font-size:0.82rem; cursor:pointer;}
   .tab-btn.active{border-color:var(--amber); color:var(--ink);}
   .tab-panel{display:none;}
   .tab-panel.active{display:block;}
   .compare{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
   @media (max-width:720px){ .compare{grid-template-columns:1fr;} }
   .compare-col{background:var(--bg-panel); padding:24px;}
-  .compare-col h4{
-    font-family:'IBM Plex Mono',monospace; font-size:0.85rem; margin:0 0 16px;
-    display:flex; align-items:center; gap:8px;
-  }
+  .compare-col h4{font-family:'IBM Plex Mono',monospace; font-size:0.85rem; margin:0 0 16px; display:flex; align-items:center; gap:8px;}
   .compare-col.live h4{color:var(--teal);}
   .compare-col.soon h4{color:var(--amber);}
   .compare-col ul{list-style:none; margin:0; padding:0; display:grid; gap:14px;}
@@ -193,7 +93,6 @@
   .compare-col li strong{display:block; font-weight:600; font-size:0.92rem; color:var(--ink);}
   .compare-col li em{display:block; font-style:normal; color:var(--muted); font-size:0.85rem; margin-top:2px;}
 
-  /* ---------- CONTACTO ---------- */
   .contact-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px;}
   @media (max-width:800px){ .contact-grid{grid-template-columns:1fr;} }
   .contact-card{background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:26px;}
@@ -201,332 +100,142 @@
   .contact-card p{color:var(--muted); margin:0 0 18px; font-size:0.92rem;}
   .contact-card p.note{margin:0; padding:10px 14px; border:1px dashed var(--line); border-radius:2px;}
   .linklist{display:grid; gap:10px;}
-  .linklist a{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:10px 14px; border:1px solid var(--line); border-radius:2px; text-decoration:none;
-    font-size:0.9rem; color:var(--ink);
-  }
+  .linklist a{display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border:1px solid var(--line); border-radius:2px; text-decoration:none; font-size:0.9rem; color:var(--ink);}
   .linklist a:hover{border-color:var(--amber); color:var(--amber);}
   .linklist a .arrow{color:var(--muted); font-family:'IBM Plex Mono',monospace;}
 
-  footer{padding:28px 0; }
+  footer{padding:28px 0;}
   footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; color:var(--muted); font-size:0.82rem;}
 
-  /* ---------- MODAL DE ACCESO ---------- */
-  dialog.auth{
-    padding:0; border:1px solid var(--line); border-radius:var(--radius);
-    background:var(--bg-panel); color:var(--ink);
-    width:min(420px, calc(100vw - 32px));
-    box-shadow:0 30px 70px -20px rgba(0,0,0,0.7);
-  }
+  /* Aviso flotante (resultado de la verificacion de email) */
+  .notice{position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:60; max-width:min(560px, calc(100vw - 24px)); display:flex; align-items:center; gap:12px; padding:12px 14px; background:var(--bg-panel); border:1px solid var(--amber); border-radius:var(--radius); box-shadow:0 20px 50px -20px rgba(0,0,0,0.7); font-size:0.92rem;}
+  .notice button{background:transparent; border:0; color:var(--muted); font-size:1.2rem; cursor:pointer; line-height:1;}
+  .notice button:hover{color:var(--ink);}
+
+  /* Modal de acceso */
+  dialog.auth{padding:0; border:1px solid var(--line); border-radius:var(--radius); background:var(--bg-panel); color:var(--ink); width:min(420px, calc(100vw - 32px)); box-shadow:0 30px 70px -20px rgba(0,0,0,0.7);}
   dialog.auth::backdrop{background:rgba(4,8,16,0.76);}
   .auth-panel{padding:24px;}
   .auth-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:18px;}
   .auth-head h2{font-size:1.25rem; margin:0;}
-  .auth-close{
-    flex:none; width:32px; height:32px; background:transparent; border:1px solid var(--line);
-    color:var(--muted); border-radius:var(--radius); cursor:pointer; font-size:1.1rem; line-height:1;
-  }
+  .auth-close{flex:none; width:32px; height:32px; background:transparent; border:1px solid var(--line); color:var(--muted); border-radius:var(--radius); cursor:pointer; font-size:1.1rem; line-height:1;}
   .auth-close:hover{color:var(--ink); border-color:var(--muted-2);}
   .seg{display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--line); border-radius:var(--radius); margin-bottom:20px; overflow:hidden;}
   .seg button{background:transparent; border:0; color:var(--muted); padding:9px 10px; font:inherit; font-size:0.9rem; cursor:pointer;}
   .seg button + button{border-left:1px solid var(--line);}
-  .seg button[aria-selected="true"]{background:var(--bg-raised); color:var(--ink); box-shadow:inset 0 -2px 0 var(--amber);}
+  .seg button[aria-selected='true']{background:var(--bg-raised); color:var(--ink); box-shadow:inset 0 -2px 0 var(--amber);}
   .field{display:grid; gap:6px; margin-bottom:16px;}
   .field label{font-size:0.86rem; color:var(--muted);}
-  .field input{
-    width:100%; background:var(--bg-raised); color:var(--ink); border:1px solid var(--line);
-    border-radius:var(--radius); padding:11px 12px; font:inherit; font-size:1rem;
-  }
+  .field input{width:100%; background:var(--bg-raised); color:var(--ink); border:1px solid var(--line); border-radius:var(--radius); padding:11px 12px; font:inherit; font-size:1rem;}
   .field input:hover{border-color:var(--muted-2);}
-  .field input[aria-invalid="true"]{border-color:var(--red);}
+  .field input[aria-invalid='true']{border-color:var(--red);}
   .pw-row{position:relative;}
   .pw-row input{padding-right:88px;}
-  .reveal{
-    position:absolute; right:6px; top:50%; transform:translateY(-50%);
-    background:transparent; border:0; color:var(--muted); font:inherit; font-size:0.82rem; cursor:pointer; padding:6px 8px;
-  }
+  .reveal{position:absolute; right:6px; top:50%; transform:translateY(-50%); background:transparent; border:0; color:var(--muted); font:inherit; font-size:0.82rem; cursor:pointer; padding:6px 8px;}
   .reveal:hover{color:var(--ink);}
   .hint{margin:0; color:var(--muted); font-size:0.82rem;}
-  .form-error{
-    margin:0 0 16px; padding:10px 12px; font-size:0.88rem; color:#efc0b6;
-    background:rgba(193,91,74,0.12); border:1px solid var(--red); border-left-width:3px; border-radius:2px;
-  }
+  .form-error{margin:0 0 16px; padding:10px 12px; font-size:0.88rem; color:#efc0b6; background:rgba(193,91,74,0.12); border:1px solid var(--red); border-left-width:3px; border-radius:2px;}
+  .form-ok{margin:16px 0 0; padding:10px 12px; font-size:0.88rem; color:#bff3f5; background:rgba(92,225,230,0.10); border:1px solid var(--teal); border-left-width:3px; border-radius:2px;}
+  .pending{display:grid; gap:12px;}
+  .pending p{margin:0; color:var(--muted); font-size:0.95rem;}
+  .pending strong{color:var(--ink); word-break:break-all;}
+  .resend-row{margin-top:16px;}
 
-  /* ---------- IDIOMA / MODO (van al final para ganar a cualquier display) ---------- */
-  html[data-lang="es"] [data-i18n-en],
-  html[data-lang="en"] [data-i18n-es]{display:none !important;}
-  dialog[data-mode="login"] [data-only="register"],
-  dialog[data-mode="register"] [data-only="login"]{display:none !important;}
+  /* Idioma / modo / estado (al final para ganar a cualquier display) */
+  html[data-lang='es'] [data-i18n-en],
+  html[data-lang='en'] [data-i18n-es]{display:none !important;}
+  dialog[data-mode='login'] [data-only='register'],
+  dialog[data-mode='register'] [data-only='login']{display:none !important;}
+  dialog[data-state='pending'] #auth-form,
+  dialog[data-state='pending'] .seg{display:none !important;}
+  dialog:not([data-state='pending']) #auth-pending{display:none !important;}
 </style>
 </head>
 <body>
 
+<div id='public'>
+
 <header>
-  <div class="headbar wrap">
-    <div class="brand">PESCATA<span class="dot">·</span>DEV</div>
-    <nav class="navlinks">
-      <a href="#catalogo" data-i18n-es>Catálogo</a><a href="#catalogo" data-i18n-en>Catalog</a>
-      <a href="#estado" data-i18n-es>Estado</a><a href="#estado" data-i18n-en>Status</a>
-      <a href="#contacto" data-i18n-es>Contacto</a><a href="#contacto" data-i18n-en>Contact</a>
+  <div class='headbar wrap'>
+    <div class='brand'>PESCATA<span class='dot'>·</span>DEV</div>
+    <nav class='navlinks'>
+      <a href='#estado' data-i18n-es>Estado</a><a href='#estado' data-i18n-en>Status</a>
+      <a href='#contacto' data-i18n-es>Contacto</a><a href='#contacto' data-i18n-en>Contact</a>
     </nav>
-    <div class="head-actions">
-      <div class="langtoggle">
-        <button id="btn-es" class="active" type="button">ES</button>
-        <button id="btn-en" type="button">EN</button>
+    <div class='head-actions'>
+      <div class='langtoggle'>
+        <button data-setlang='es' class='active' type='button'>ES</button>
+        <button data-setlang='en' type='button'>EN</button>
       </div>
-      <div class="auth-group" id="auth-out">
-        <button class="btn btn-ghost btn-sm" type="button" data-open-auth="login">
+      <div class='auth-group' id='auth-out'>
+        <button class='btn btn-ghost btn-sm' type='button' data-open-auth='login'>
           <span data-i18n-es>Acceder</span><span data-i18n-en>Log in</span>
         </button>
-        <button class="btn btn-primary btn-sm hide-sm" type="button" data-open-auth="register">
+        <button class='btn btn-primary btn-sm hide-sm' type='button' data-open-auth='register'>
           <span data-i18n-es>Crear cuenta</span><span data-i18n-en>Create account</span>
         </button>
-      </div>
-      <div class="auth-group" id="auth-in" hidden>
-        <a class="btn btn-ghost btn-sm" href="#cuenta">
-          <span data-i18n-es>Mi cuenta</span><span data-i18n-en>My account</span>
-        </a>
       </div>
     </div>
   </div>
 </header>
 
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow"><span class="pulse"></span>
-        <span data-i18n-es>construido y probado sobre servidor propio</span>
-        <span data-i18n-en>built and tested on my own server</span>
-      </div>
-      <h1>
-        <span data-i18n-es>Panel, Discord y modelos 3D para tu servidor de Arma Reforger.</span>
-        <span data-i18n-en>Panel, Discord and 3D models for your Arma Reforger server.</span>
-      </h1>
-      <p class="lead">
-        <span data-i18n-es>Ya sea un servidor dedicado o alquilado (Nitrado, GTX y similares). Nace de necesitarlo para el mío propio — ahora lo desarrollo también para otras comunidades.</span>
-        <span data-i18n-en>Whether it's a dedicated server or a rented one (Nitrado, GTX and similar). Born from needing it for my own — now I build it for other communities too.</span>
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#catalogo">
-          <span data-i18n-es>Ver el catálogo</span><span data-i18n-en>See the catalog</span>
-        </a>
-        <a class="btn btn-ghost" href="#contacto">
-          <span data-i18n-es>Hablamos por Discord</span><span data-i18n-en>Talk on Discord</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="hud" aria-label="Vista de ejemplo del panel">
-      <div class="hud-top">
-        <span data-i18n-es>panel · vista de ejemplo</span><span data-i18n-en>panel · sample view</span>
-        <span class="live">● <span data-i18n-es>datos de muestra</span><span data-i18n-en>sample data</span></span>
-      </div>
-      <div class="hud-body">
-        <div class="hud-row hl"><span class="k" data-i18n-es>Estado</span><span class="k" data-i18n-en>Status</span><span class="v">ONLINE · 3d 14h 22m</span></div>
-        <div class="hud-row"><span class="k" data-i18n-es>Jugadores</span><span class="k" data-i18n-en>Players</span><span class="v">18 / 64</span></div>
-        <div class="hud-row"><span class="k" data-i18n-es>Mapa</span><span class="k" data-i18n-en>Map</span><span class="v">Everon</span></div>
-        <div class="hud-feed">
-          <div><span class="tag">CONN</span> <span data-i18n-es>jugador conectado</span><span data-i18n-en>player connected</span> · ID: 6C21…</div>
-          <div><span class="tag kill">KILL</span> Delta_04 → Kappa_11 · 214m</div>
-          <div><span class="tag adm">ADMIN</span> <span data-i18n-es>admin inició sesión</span><span data-i18n-en>admin signed in</span></div>
-        </div>
-      </div>
-    </div>
+  <div class='wrap'>
+    <h1>Pescata Dev</h1>
+    <p><span data-i18n-es>Panel, Discord y modelos 3D para tu servidor de Arma Reforger.</span><span data-i18n-en>Panel, Discord and 3D models for your Arma Reforger server.</span></p>
+    <div class='cta-row'><a class='btn btn-primary' href='#' data-open-auth='register'><span data-i18n-es>Crear cuenta</span><span data-i18n-en>Create account</span></a></div>
   </div>
 </section>
 
-<section id="cuenta" hidden>
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="k" data-i18n-es>// CUENTA</span><span class="k" data-i18n-en>// ACCOUNT</span>
-      <h2 id="acc-title" tabindex="-1"><span data-i18n-es>Tu cuenta</span><span data-i18n-en>Your account</span></h2>
-      <p>
-        <span data-i18n-es>Has iniciado sesión como</span><span data-i18n-en>You're signed in as</span>
-        <strong id="acc-email"></strong>
-      </p>
-    </div>
-
-    <div class="acc-grid">
-      <div class="acc-card">
-        <h3><span data-i18n-es>Datos de la cuenta</span><span data-i18n-en>Account details</span></h3>
-        <dl>
-          <div><dt>Email</dt><dd id="acc-email-2"></dd></div>
-          <div>
-            <dt><span data-i18n-es>Miembro desde</span><span data-i18n-en>Member since</span></dt>
-            <dd id="acc-since"></dd>
-          </div>
-        </dl>
-        <button class="btn btn-ghost btn-sm" type="button" id="btn-logout">
-          <span data-i18n-es>Cerrar sesión</span><span data-i18n-en>Log out</span>
-        </button>
-      </div>
-
-      <div class="acc-card">
-        <h3><span data-i18n-es>Servicios activos</span><span data-i18n-en>Active services</span></h3>
-        <div class="empty-state">
-          <strong><span data-i18n-es>Todavía no tienes ningún servicio activo.</span><span data-i18n-en>You don't have any active service yet.</span></strong>
-          <p>
-            <span data-i18n-es>Cuando la contratación esté abierta, cada servicio aparecerá aquí con los días que le queden. Si quieres que te avise en cuanto abra, escríbeme por Discord.</span>
-            <span data-i18n-en>Once checkout is open, each service will show up here with its remaining days. To get notified the moment it opens, message me on Discord.</span>
-          </p>
-          <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Avísame</span><span data-i18n-en>Notify me</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="catalogo">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="k" data-i18n-es>// CATÁLOGO</span><span class="k" data-i18n-en>// CATALOG</span>
-      <h2><span data-i18n-es>Elige lo que necesitas</span><span data-i18n-en>Pick what you need</span></h2>
-      <p><span data-i18n-es>Cada trabajo es distinto y el precio depende de lo que pidas. Ya puedes crear tu cuenta; para el presupuesto, escríbeme por Discord y te lo paso sin compromiso.</span><span data-i18n-en>Every job is different and the price depends on what you need. You can already create an account; for a quote, message me on Discord and I'll get back to you with no strings attached.</span></p>
-    </div>
-
-    <div class="catalog-grid">
-      <div class="catalog-card">
-        <h3><span data-i18n-es>Modelos 3D</span><span data-i18n-en>3D Models</span> <span class="status" data-i18n-es>PRESUPUESTO</span><span class="status" data-i18n-en>QUOTE-BASED</span></h3>
-        <p><span data-i18n-es>Vehículos, armamento y otros modelos preparados desde Blender y listos para exportar a Workbench.</span><span data-i18n-en>Vehicles, weapons and other models prepared in Blender and ready to export to Workbench.</span></p>
-        <ul>
-          <li><span data-i18n-es>Parte de Blender ya resuelta: escala, pivotes, colisiones, LODs, armature</span><span data-i18n-en>Blender side already done: scale, pivots, collisions, LODs, armature</span></li>
-          <li><span data-i18n-es>Galería con imágenes en preparación</span><span data-i18n-en>Image gallery in progress</span></li>
-        </ul>
-        <div class="spacer"></div>
-        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
-      </div>
-
-      <div class="catalog-card">
-        <h3><span data-i18n-es>Sistema (panel)</span><span data-i18n-en>System (panel)</span> <span class="status" data-i18n-es>EN PRUEBAS</span><span class="status" data-i18n-en>IN TESTING</span></h3>
-        <p><span data-i18n-es>Panel web con Discord integrado para administrar tu servidor: jugadores, moderación y estado en vivo. Ahora mismo lo estoy probando en mi propio servidor dedicado.</span><span data-i18n-en>Web panel with integrated Discord to run your server: players, moderation and live status. Right now I'm testing it on my own dedicated server.</span></p>
-        <ul>
-          <li><span data-i18n-es>Se alquilará por días, para servidor dedicado o de alquiler (Nitrado, GTX, etc.)</span><span data-i18n-en>Will be rented by days, for dedicated or rented servers (Nitrado, GTX, etc.)</span></li>
-        </ul>
-        <div class="spacer"></div>
-        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Avísame</span><span data-i18n-en>Notify me</span></a>
-      </div>
-
-      <div class="catalog-card">
-        <h3><span data-i18n-es>Páginas web</span><span data-i18n-en>Web pages</span> <span class="status" data-i18n-es>PRESUPUESTO</span><span class="status" data-i18n-en>QUOTE-BASED</span></h3>
-        <p><span data-i18n-es>Páginas web personalizadas para tu comunidad o servidor, como esta misma.</span><span data-i18n-en>Custom web pages for your community or server, like this one.</span></p>
-        <div class="spacer"></div>
-        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
-      </div>
-
-      <div class="catalog-card">
-        <h3><span data-i18n-es>Bots de Discord y Telegram</span><span data-i18n-en>Discord & Telegram bots</span> <span class="status" data-i18n-es>PRESUPUESTO</span><span class="status" data-i18n-en>QUOTE-BASED</span></h3>
-        <p><span data-i18n-es>Bots a medida para moderación, notificaciones, pedidos o lo que necesite tu comunidad.</span><span data-i18n-en>Custom bots for moderation, notifications, orders, or whatever your community needs.</span></p>
-        <div class="spacer"></div>
-        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
-      </div>
-
-      <div class="catalog-card">
-        <h3><span data-i18n-es>Mods y mantenimiento</span><span data-i18n-en>Mods & maintenance</span> <span class="status" data-i18n-es>PRESUPUESTO</span><span class="status" data-i18n-en>QUOTE-BASED</span></h3>
-        <p><span data-i18n-es>Desarrollo de mods y mantenimiento de servidores de Arma Reforger.</span><span data-i18n-en>Mod development and server maintenance for Arma Reforger.</span></p>
-        <div class="spacer"></div>
-        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
-      </div>
-
-      <div class="catalog-card">
-        <h3><span data-i18n-es>Mapas</span><span data-i18n-en>Maps</span> <span class="status" data-i18n-es>PRESUPUESTO</span><span class="status" data-i18n-en>QUOTE-BASED</span></h3>
-        <p><span data-i18n-es>Creación de mapas para tu servidor.</span><span data-i18n-en>Map creation for your server.</span></p>
-        <div class="spacer"></div>
-        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Pide presupuesto</span><span data-i18n-en>Get a quote</span></a>
-      </div>
-
-      <div class="catalog-card">
-        <h3><span data-i18n-es>Personalizado</span><span data-i18n-en>Custom</span></h3>
-        <p><span data-i18n-es>¿Necesitas algo que no está en el catálogo? Cuéntamelo por Discord y te guío con unas preguntas cortas para concretarlo.</span><span data-i18n-en>Need something not in the catalog? Tell me on Discord and I'll walk you through a few quick questions to nail it down.</span></p>
-        <div class="spacer"></div>
-        <a class="btn btn-ghost btn-sm" href="#contacto"><span data-i18n-es>Ir a Discord</span><span data-i18n-en>Go to Discord</span></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="estado">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="k" data-i18n-es>// ESTADO REAL, SIN HUMO</span><span class="k" data-i18n-en>// REAL STATUS, NO SMOKE</span>
-      <h2><span data-i18n-es>Lo que ya funciona — y lo que está en camino</span><span data-i18n-en>What already works — and what's on its way</span></h2>
+<section id='estado'>
+  <div class='wrap'>
+    <div class='sec-head'>
+      <span class='k' data-i18n-es>// ESTADO REAL, SIN HUMO</span><span class='k' data-i18n-en>// REAL STATUS, NO SMOKE</span>
+      <h2><span data-i18n-es>Lo que ya funciona — y lo que está en camino</span><span data-i18n-en>What already works — and what is on its way</span></h2>
       <p><span data-i18n-es>Estado real de cada pieza, no una lista de ventas. Elige un proyecto para ver el detalle.</span><span data-i18n-en>The real status of each piece, not a sales list. Pick a project to see the detail.</span></p>
     </div>
 
-    <div class="tabs">
-      <button class="tab-btn active" type="button" data-tab="sistema"><span data-i18n-es>Sistema (panel)</span><span data-i18n-en>System (panel)</span></button>
-      <button class="tab-btn" type="button" data-tab="modelos"><span data-i18n-es>Modelos 3D</span><span data-i18n-en>3D Models</span></button>
+    <div class='tabs'>
+      <button class='tab-btn active' type='button' data-tab='sistema'><span data-i18n-es>Sistema (panel)</span><span data-i18n-en>System (panel)</span></button>
+      <button class='tab-btn' type='button' data-tab='modelos'><span data-i18n-es>Modelos 3D</span><span data-i18n-en>3D Models</span></button>
     </div>
 
-    <div class="tab-panel active" id="tab-sistema">
-      <div class="compare">
-        <div class="compare-col live">
+    <div class='tab-panel active' id='tab-sistema'>
+      <div class='compare'>
+        <div class='compare-col live'>
           <h4>● <span data-i18n-es>EN PRODUCCIÓN</span><span data-i18n-en>LIVE NOW</span></h4>
           <ul>
-            <li>
-              <strong><span data-i18n-es>Ranking de jugadores</span><span data-i18n-en>Player leaderboard</span></strong>
-              <em><span data-i18n-es>bajas, muertes, tiempo jugado y ratio K/D</span><span data-i18n-en>kills, deaths, playtime and K/D ratio</span></em>
-            </li>
-            <li>
-              <strong><span data-i18n-es>Discord multicanal</span><span data-i18n-en>Multi-channel Discord</span></strong>
-              <em><span data-i18n-es>combate, conexiones, fuego amigo, estado del servidor y acciones de admin, cada uno en su canal</span><span data-i18n-en>combat, connections, friendly fire, server status and admin actions, each in its own channel</span></em>
-            </li>
-            <li>
-              <strong><span data-i18n-es>Detalle de cada baja</span><span data-i18n-en>Per-kill detail</span></strong>
-              <em><span data-i18n-es>distancia, tipo de daño y zona de impacto</span><span data-i18n-en>distance, damage type and hit zone</span></em>
-            </li>
-            <li>
-              <strong><span data-i18n-es>Detección de caídas 24/7</span><span data-i18n-en>24/7 crash detection</span></strong>
-              <em><span data-i18n-es>errores de red y fallos de persistencia, con filtro de ruido de mods de terceros</span><span data-i18n-en>network errors and persistence failures, filtering out noise from third-party mods</span></em>
-            </li>
+            <li><strong><span data-i18n-es>Ranking de jugadores</span><span data-i18n-en>Player leaderboard</span></strong><em><span data-i18n-es>bajas, muertes, tiempo jugado y ratio K/D</span><span data-i18n-en>kills, deaths, playtime and K/D ratio</span></em></li>
+            <li><strong><span data-i18n-es>Discord multicanal</span><span data-i18n-en>Multi-channel Discord</span></strong><em><span data-i18n-es>combate, conexiones, fuego amigo, estado del servidor y acciones de admin, cada uno en su canal</span><span data-i18n-en>combat, connections, friendly fire, server status and admin actions, each in its own channel</span></em></li>
+            <li><strong><span data-i18n-es>Detalle de cada baja</span><span data-i18n-en>Per-kill detail</span></strong><em><span data-i18n-es>distancia, tipo de daño y zona de impacto</span><span data-i18n-en>distance, damage type and hit zone</span></em></li>
+            <li><strong><span data-i18n-es>Detección de caídas 24/7</span><span data-i18n-en>24/7 crash detection</span></strong><em><span data-i18n-es>errores de red y fallos de persistencia, con filtro de ruido de mods de terceros</span><span data-i18n-en>network errors and persistence failures, filtering out noise from third-party mods</span></em></li>
           </ul>
         </div>
-        <div class="compare-col soon">
+        <div class='compare-col soon'>
           <h4>◐ <span data-i18n-es>EN DESARROLLO</span><span data-i18n-en>IN DEVELOPMENT</span></h4>
           <ul>
-            <li>
-              <strong><span data-i18n-es>Consola RCON protegida</span><span data-i18n-en>Protected RCON console</span></strong>
-              <em><span data-i18n-es>comandos con lista blanca desde el propio panel</span><span data-i18n-en>whitelisted commands from the panel itself</span></em>
-            </li>
-            <li>
-              <strong><span data-i18n-es>Auditoría de Game Master</span><span data-i18n-en>Game Master audit</span></strong>
-              <em><span data-i18n-es>quién abre el editor y qué crea o elimina</span><span data-i18n-en>who opens the editor and what they create or delete</span></em>
-            </li>
-            <li>
-              <strong><span data-i18n-es>Reinicios programados</span><span data-i18n-en>Scheduled restarts</span></strong>
-              <em><span data-i18n-es>con aviso previo a los jugadores conectados</span><span data-i18n-en>with advance warning to connected players</span></em>
-            </li>
-            <li>
-              <strong><span data-i18n-es>Alquiler por días</span><span data-i18n-en>Day-based rental</span></strong>
-              <em><span data-i18n-es>el registro ya está disponible; el sistema sigue en pruebas en mi servidor</span><span data-i18n-en>sign-up is already available; the system is still being tested on my server</span></em>
-            </li>
+            <li><strong><span data-i18n-es>Consola RCON protegida</span><span data-i18n-en>Protected RCON console</span></strong><em><span data-i18n-es>comandos con lista blanca desde el propio panel</span><span data-i18n-en>whitelisted commands from the panel itself</span></em></li>
+            <li><strong><span data-i18n-es>Auditoría de Game Master</span><span data-i18n-en>Game Master audit</span></strong><em><span data-i18n-es>quién abre el editor y qué crea o elimina</span><span data-i18n-en>who opens the editor and what they create or delete</span></em></li>
+            <li><strong><span data-i18n-es>Reinicios programados</span><span data-i18n-en>Scheduled restarts</span></strong><em><span data-i18n-es>con aviso previo a los jugadores conectados</span><span data-i18n-en>with advance warning to connected players</span></em></li>
+            <li><strong><span data-i18n-es>Alquiler por días</span><span data-i18n-en>Day-based rental</span></strong><em><span data-i18n-es>el registro ya está disponible; el sistema sigue en pruebas en mi servidor</span><span data-i18n-en>sign-up is already available; the system is still being tested on my server</span></em></li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="tab-panel" id="tab-modelos">
-      <div class="compare">
-        <div class="compare-col live">
+    <div class='tab-panel' id='tab-modelos'>
+      <div class='compare'>
+        <div class='compare-col live'>
           <h4>● <span data-i18n-es>EN PRODUCCIÓN</span><span data-i18n-en>LIVE NOW</span></h4>
           <ul>
-            <li>
-              <strong><span data-i18n-es>Preparación de modelos para Workbench</span><span data-i18n-en>Model prep for Workbench</span></strong>
-              <em><span data-i18n-es>escala, pivotes, colisiones, LODs, armature y piezas móviles</span><span data-i18n-en>scale, pivots, collisions, LODs, armature and movable parts</span></em>
-            </li>
+            <li><strong><span data-i18n-es>Preparación de modelos para Workbench</span><span data-i18n-en>Model prep for Workbench</span></strong><em><span data-i18n-es>escala, pivotes, colisiones, LODs, armature y piezas móviles</span><span data-i18n-en>scale, pivots, collisions, LODs, armature and movable parts</span></em></li>
           </ul>
         </div>
-        <div class="compare-col soon">
+        <div class='compare-col soon'>
           <h4>◐ <span data-i18n-es>EN DESARROLLO</span><span data-i18n-en>IN DEVELOPMENT</span></h4>
           <ul>
-            <li>
-              <strong><span data-i18n-es>Galería pública en la web</span><span data-i18n-en>Public gallery on the site</span></strong>
-              <em><span data-i18n-es>imágenes por modelo, presupuesto a medida por Discord</span><span data-i18n-en>images per model, custom quote via Discord</span></em>
-            </li>
-            <li>
-              <strong><span data-i18n-es>Primeros modelos del catálogo</span><span data-i18n-en>First models in the catalog</span></strong>
-              <em><span data-i18n-es>vehículos y armamento en preparación</span><span data-i18n-en>vehicles and weapons in progress</span></em>
-            </li>
+            <li><strong><span data-i18n-es>Galería pública en la web</span><span data-i18n-en>Public gallery on the site</span></strong><em><span data-i18n-es>imágenes por modelo, presupuesto a medida por Discord</span><span data-i18n-en>images per model, custom quote via Discord</span></em></li>
+            <li><strong><span data-i18n-es>Primeros modelos del catálogo</span><span data-i18n-en>First models in the catalog</span></strong><em><span data-i18n-es>vehículos y armamento en preparación</span><span data-i18n-en>vehicles and weapons in progress</span></em></li>
           </ul>
         </div>
       </div>
@@ -534,24 +243,24 @@
   </div>
 </section>
 
-<section id="contacto" style="border-bottom:none;">
-  <div class="wrap contact-grid">
+<section id='contacto' style='border-bottom:none;'>
+  <div class='wrap contact-grid'>
     <div>
-      <div class="sec-head" style="margin-bottom:24px;">
-        <span class="k" data-i18n-es>// HABLEMOS</span><span class="k" data-i18n-en>// LET'S TALK</span>
+      <div class='sec-head' style='margin-bottom:24px;'>
+        <span class='k' data-i18n-es>// HABLEMOS</span><span class='k' data-i18n-en>// LET'S TALK</span>
         <h2><span data-i18n-es>¿Tienes un servidor y te falta algo así?</span><span data-i18n-en>Running a server and missing something like this?</span></h2>
-        <p><span data-i18n-es>Cuéntame qué necesitas y te digo, sin rodeos, si es viable y qué llevaría.</span><span data-i18n-en>Tell me what you need and I'll tell you straight whether it's doable and what it'd take.</span></p>
+        <p><span data-i18n-es>Cuéntame qué necesitas y te digo, sin rodeos, si es viable y qué llevaría.</span><span data-i18n-en>Tell me what you need and I will tell you straight whether it is doable and what it would take.</span></p>
       </div>
     </div>
-    <div class="contact-card">
+    <div class='contact-card'>
       <h3>Discord</h3>
       <p><span data-i18n-es>Respondo por Discord — únete al canal dedicado a esto.</span><span data-i18n-en>I answer on Discord — join the channel for this.</span></p>
-      <div class="linklist">
-        <a href="#" id="discord-link" target="_blank" rel="noopener" hidden>
-          <span><span data-i18n-es>Unirme al Discord</span><span data-i18n-en>Join the Discord</span></span> <span class="arrow">→</span>
+      <div class='linklist'>
+        <a href='#' id='discord-link' target='_blank' rel='noopener' hidden>
+          <span><span data-i18n-es>Unirme al Discord</span><span data-i18n-en>Join the Discord</span></span> <span class='arrow'>→</span>
         </a>
       </div>
-      <p class="note" id="discord-soon">
+      <p class='note' id='discord-soon'>
         <span data-i18n-es>El enlace de invitación se publicará en breve.</span>
         <span data-i18n-en>The invite link will be published shortly.</span>
       </p>
@@ -560,57 +269,70 @@
 </section>
 
 <footer>
-  <div class="wrap">
+  <div class='wrap'>
     <span>© 2026 Pescata Dev</span>
-    <span class="mono" data-i18n-es>panel, Discord y modelos 3D para Arma Reforger</span>
-    <span class="mono" data-i18n-en>panel, Discord and 3D models for Arma Reforger</span>
+    <span class='mono' data-i18n-es>panel, Discord y modelos 3D para Arma Reforger</span>
+    <span class='mono' data-i18n-en>panel, Discord and 3D models for Arma Reforger</span>
   </div>
 </footer>
 
-<dialog class="auth" id="auth-dialog" data-mode="login" aria-labelledby="auth-title">
-  <div class="auth-panel">
-    <div class="auth-head">
-      <h2 id="auth-title">
-        <span data-only="login" data-i18n-es>Acceder a tu cuenta</span>
-        <span data-only="login" data-i18n-en>Log in to your account</span>
-        <span data-only="register" data-i18n-es>Crear tu cuenta</span>
-        <span data-only="register" data-i18n-en>Create your account</span>
+</div>
+
+<!--APP-->
+
+<div class='notice' id='notice' role='status' hidden>
+  <span id='notice-text'></span>
+  <button type='button' id='notice-close' aria-label='Cerrar'>×</button>
+</div>
+
+<dialog class='auth' id='auth-dialog' data-mode='login' aria-labelledby='auth-title'>
+  <div class='auth-panel'>
+    <div class='auth-head'>
+      <h2 id='auth-title'>
+        <span data-only='login' data-i18n-es>Acceder a tu cuenta</span>
+        <span data-only='login' data-i18n-en>Log in to your account</span>
+        <span data-only='register' data-i18n-es>Crear tu cuenta</span>
+        <span data-only='register' data-i18n-en>Create your account</span>
       </h2>
-      <button class="auth-close" id="auth-close" type="button" aria-label="Cerrar">×</button>
+      <button class='auth-close' id='auth-close' type='button' aria-label='Cerrar'>×</button>
     </div>
 
-    <div class="seg" role="tablist">
-      <button type="button" role="tab" id="tab-login" data-mode="login" aria-selected="true">
-        <span data-i18n-es>Acceder</span><span data-i18n-en>Log in</span>
-      </button>
-      <button type="button" role="tab" id="tab-register" data-mode="register" aria-selected="false">
-        <span data-i18n-es>Crear cuenta</span><span data-i18n-en>Create account</span>
-      </button>
+    <div class='seg' role='tablist'>
+      <button type='button' role='tab' id='tab-login' data-mode='login' aria-selected='true'><span data-i18n-es>Acceder</span><span data-i18n-en>Log in</span></button>
+      <button type='button' role='tab' id='tab-register' data-mode='register' aria-selected='false'><span data-i18n-es>Crear cuenta</span><span data-i18n-en>Create account</span></button>
     </div>
 
-    <form id="auth-form" novalidate>
-      <div class="field">
-        <label for="auth-email">Email</label>
-        <input id="auth-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required>
+    <form id='auth-form' novalidate>
+      <div class='field'>
+        <label for='auth-email'>Email</label>
+        <input id='auth-email' name='email' type='email' autocomplete='email' inputmode='email' autocapitalize='none' spellcheck='false' required>
       </div>
-      <div class="field">
-        <label for="auth-password"><span data-i18n-es>Contraseña</span><span data-i18n-en>Password</span></label>
-        <div class="pw-row">
-          <input id="auth-password" name="password" type="password" autocomplete="current-password" required>
-          <button class="reveal" id="auth-reveal" type="button" aria-controls="auth-password">Mostrar</button>
+      <div class='field'>
+        <label for='auth-password'><span data-i18n-es>Contraseña</span><span data-i18n-en>Password</span></label>
+        <div class='pw-row'>
+          <input id='auth-password' name='password' type='password' autocomplete='current-password' required>
+          <button class='reveal' id='auth-reveal' type='button' aria-controls='auth-password'>Mostrar</button>
         </div>
-        <p class="hint" id="auth-hint" data-only="register">
-          <span data-i18n-es>Mínimo 8 caracteres.</span><span data-i18n-en>At least 8 characters.</span>
-        </p>
+        <p class='hint' id='auth-hint' data-only='register'><span data-i18n-es>Mínimo 8 caracteres. Te enviaremos un correo para confirmar la cuenta.</span><span data-i18n-en>At least 8 characters. We will email you to confirm the account.</span></p>
       </div>
-      <p class="form-error" id="auth-error" role="alert" hidden></p>
-      <button class="btn btn-primary btn-block" id="auth-submit" type="submit">
-        <span data-only="login" data-i18n-es>Acceder</span>
-        <span data-only="login" data-i18n-en>Log in</span>
-        <span data-only="register" data-i18n-es>Crear cuenta</span>
-        <span data-only="register" data-i18n-en>Create account</span>
+      <p class='form-error' id='auth-error' role='alert' hidden></p>
+      <button class='btn btn-primary btn-block' id='auth-submit' type='submit'>
+        <span data-only='login' data-i18n-es>Acceder</span>
+        <span data-only='login' data-i18n-en>Log in</span>
+        <span data-only='register' data-i18n-es>Crear cuenta</span>
+        <span data-only='register' data-i18n-en>Create account</span>
       </button>
     </form>
+
+    <div class='pending' id='auth-pending'>
+      <p><strong><span data-i18n-es>Revisa tu correo</span><span data-i18n-en>Check your email</span></strong></p>
+      <p><span data-i18n-es>Te hemos enviado un enlace de confirmación a</span><span data-i18n-en>We have sent a confirmation link to</span> <strong id='pending-email'></strong>. <span data-i18n-es>Ábrelo para activar tu cuenta y después accede. Si no lo ves, mira en spam.</span><span data-i18n-en>Open it to activate your account, then log in. If you cannot see it, check spam.</span></p>
+    </div>
+
+    <div class='resend-row' id='auth-resend-row' hidden>
+      <button class='btn btn-ghost btn-sm' type='button' id='auth-resend'><span data-i18n-es>Reenviar correo de confirmación</span><span data-i18n-en>Resend confirmation email</span></button>
+    </div>
+    <p id='auth-info' role='status' hidden></p>
   </div>
 </dialog>
 
@@ -618,8 +340,8 @@
 (function () {
   'use strict';
 
-  // Enlace de invitación al Discord. Mientras esté vacío, la web muestra
-  // "el enlace se publicará en breve" en vez de un botón roto.
+  // Enlace de invitacion al Discord. Mientras este vacio, la web muestra
+  // que el enlace se publicara en breve en vez de un boton roto.
   var DISCORD_INVITE = 'https://discord.gg/zA6CVUbYD';
 
   var html = document.documentElement;
@@ -631,9 +353,13 @@
       WEAK_PASSWORD: 'La contraseña debe tener al menos 8 caracteres.',
       EMAIL_TAKEN: 'Ya existe una cuenta con ese email. Prueba a acceder.',
       BAD_CREDENTIALS: 'Email o contraseña incorrectos.',
+      EMAIL_NOT_VERIFIED: 'Aún no has confirmado tu email. Revisa tu bandeja de entrada (y el spam) o pide un nuevo correo.',
       RATE_LIMITED: 'Demasiados intentos. Espera unos minutos y vuelve a probar.',
       NETWORK: 'No hay conexión con el servidor. Comprueba tu conexión y vuelve a probar.',
-      SERVER_ERROR: 'No hemos podido completar la acción. Vuelve a probar en un momento.'
+      SERVER_ERROR: 'No hemos podido completar la acción. Vuelve a probar en un momento.',
+      RESENT: 'Si la cuenta existe y falta por confirmar, te hemos enviado un correo nuevo.',
+      NOTICE_OK: '¡Email confirmado! Ya estás dentro de tu cuenta.',
+      NOTICE_BAD: 'El enlace de confirmación no es válido o ha caducado. Accede con tu email y contraseña para pedir uno nuevo.'
     },
     en: {
       close: 'Close', show: 'Show', hide: 'Hide',
@@ -642,9 +368,13 @@
       WEAK_PASSWORD: 'The password must be at least 8 characters long.',
       EMAIL_TAKEN: 'An account with that email already exists. Try logging in.',
       BAD_CREDENTIALS: 'Incorrect email or password.',
+      EMAIL_NOT_VERIFIED: 'You have not confirmed your email yet. Check your inbox (and spam) or request a new email.',
       RATE_LIMITED: 'Too many attempts. Wait a few minutes and try again.',
       NETWORK: 'Cannot reach the server. Check your connection and try again.',
-      SERVER_ERROR: "We couldn't complete that. Please try again in a moment."
+      SERVER_ERROR: 'We could not complete that. Please try again in a moment.',
+      RESENT: 'If the account exists and is not confirmed yet, we have sent you a new email.',
+      NOTICE_OK: 'Email confirmed! You are now signed in.',
+      NOTICE_BAD: 'The confirmation link is invalid or has expired. Log in with your email and password to request a new one.'
     }
   };
 
@@ -652,6 +382,11 @@
   var user = null;
   var mode = 'login';
   var errorCode = null;
+  var infoCode = null;
+  var infoIsErr = false;
+  var noticeCode = null;
+  var pending = false;
+  var lastEmail = '';
   var busy = false;
 
   var $ = function (id) { return document.getElementById(id); };
@@ -660,6 +395,7 @@
   var emailInput = $('auth-email');
   var passInput = $('auth-password');
   var errorBox = $('auth-error');
+  var infoBox = $('auth-info');
   var revealBtn = $('auth-reveal');
   var submitBtn = $('auth-submit');
 
@@ -670,16 +406,21 @@
     lang = next === 'en' ? 'en' : 'es';
     html.setAttribute('data-lang', lang);
     html.setAttribute('lang', lang);
-    $('btn-es').classList.toggle('active', lang === 'es');
-    $('btn-en').classList.toggle('active', lang === 'en');
+    document.querySelectorAll('[data-setlang]').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-setlang') === lang);
+    });
     try { localStorage.setItem('pescata_lang', lang); } catch (e) {}
     $('auth-close').setAttribute('aria-label', t('close'));
+    $('notice-close').setAttribute('aria-label', t('close'));
     updateReveal();
     renderError();
-    renderSince();
+    renderInfo();
+    renderNotice();
+    document.dispatchEvent(new CustomEvent('pescata:lang', { detail: lang }));
   }
-  $('btn-es').addEventListener('click', function () { setLang('es'); });
-  $('btn-en').addEventListener('click', function () { setLang('en'); });
+  document.querySelectorAll('[data-setlang]').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-setlang')); });
+  });
 
   /* ---------- discord ---------- */
   if (DISCORD_INVITE) {
@@ -699,6 +440,14 @@
       $('tab-' + btn.dataset.tab).classList.add('active');
     });
   });
+
+  /* ---------- aviso flotante ---------- */
+  function renderNotice() {
+    if (!noticeCode) { $('notice').hidden = true; return; }
+    $('notice-text').textContent = t(noticeCode);
+    $('notice').hidden = false;
+  }
+  $('notice-close').addEventListener('click', function () { noticeCode = null; renderNotice(); });
 
   /* ---------- API ---------- */
   function api(path, options) {
@@ -724,38 +473,16 @@
     );
   }
 
-  /* ---------- cuenta ---------- */
-  function renderSince() {
-    if (!user || !user.createdAt) { $('acc-since').textContent = ''; return; }
-    var d = new Date(user.createdAt);
-    if (isNaN(d.getTime())) { $('acc-since').textContent = ''; return; }
-    $('acc-since').textContent = d.toLocaleDateString(lang === 'en' ? 'en-GB' : 'es-ES', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
-  }
-
+  /* ---------- sesion: al entrar se sustituye la web publica por el area de cliente ---------- */
   function renderUser() {
-    $('auth-out').hidden = !!user;
-    $('auth-in').hidden = !user;
-    $('cuenta').hidden = !user;
-    $('acc-email').textContent = user ? user.email : '';
-    $('acc-email-2').textContent = user ? user.email : '';
-    renderSince();
+    window.pescataUser = user;
+    $('public').hidden = !!user;
+    document.dispatchEvent(new CustomEvent('pescata:user', { detail: { user: user } }));
   }
-
-  function goToAccount() {
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var sec = $('cuenta');
-    sec.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    $('acc-title').focus({ preventScroll: true });
-  }
-
-  $('btn-logout').addEventListener('click', function () {
-    api('/logout', { method: 'POST' }).catch(function () {}).then(function () {
-      user = null;
-      renderUser();
-      window.scrollTo(0, 0);
-    });
+  document.addEventListener('pescata:logout', function () {
+    user = null;
+    renderUser();
+    window.scrollTo(0, 0);
   });
 
   /* ---------- modal de acceso ---------- */
@@ -764,18 +491,25 @@
     revealBtn.textContent = visible ? t('hide') : t('show');
     revealBtn.setAttribute('aria-pressed', visible ? 'true' : 'false');
   }
-
+  function updateResend() {
+    $('auth-resend-row').hidden = !(pending || errorCode === 'EMAIL_NOT_VERIFIED');
+  }
   function clearInvalid() {
     emailInput.removeAttribute('aria-invalid');
     passInput.removeAttribute('aria-invalid');
   }
-
   function renderError() {
-    if (!errorCode) { errorBox.hidden = true; errorBox.textContent = ''; return; }
-    errorBox.textContent = t(errorCode);
-    errorBox.hidden = false;
+    if (!errorCode) { errorBox.hidden = true; errorBox.textContent = ''; }
+    else { errorBox.textContent = t(errorCode); errorBox.hidden = false; }
+    updateResend();
   }
-
+  function renderInfo() {
+    if (!infoCode) { infoBox.hidden = true; infoBox.textContent = ''; return; }
+    infoBox.className = infoIsErr ? 'form-error' : 'form-ok';
+    infoBox.textContent = t(infoCode);
+    infoBox.hidden = false;
+  }
+  function showInfo(code, isErr) { infoCode = code; infoIsErr = !!isErr; renderInfo(); }
   function showError(code, field) {
     errorCode = code;
     clearInvalid();
@@ -785,7 +519,15 @@
     }
     renderError();
   }
-
+  function resetDialogState() {
+    pending = false;
+    dlg.removeAttribute('data-state');
+    errorCode = null;
+    infoCode = null;
+    clearInvalid();
+    renderError();
+    renderInfo();
+  }
   function setMode(next) {
     mode = next === 'register' ? 'register' : 'login';
     dlg.setAttribute('data-mode', mode);
@@ -793,11 +535,13 @@
     $('tab-register').setAttribute('aria-selected', mode === 'register' ? 'true' : 'false');
     passInput.setAttribute('autocomplete', mode === 'register' ? 'new-password' : 'current-password');
     errorCode = null;
+    infoCode = null;
     clearInvalid();
     renderError();
+    renderInfo();
   }
-
   function openAuth(next) {
+    resetDialogState();
     setMode(next);
     passInput.type = 'password';
     updateReveal();
@@ -808,20 +552,20 @@
     }
     emailInput.focus();
   }
-
   function closeAuth() {
     if (typeof dlg.close === 'function') dlg.close();
     else dlg.removeAttribute('open');
     form.reset();
     passInput.type = 'password';
     updateReveal();
-    errorCode = null;
-    clearInvalid();
-    renderError();
+    resetDialogState();
   }
 
   document.querySelectorAll('[data-open-auth]').forEach(function (btn) {
-    btn.addEventListener('click', function () { openAuth(btn.getAttribute('data-open-auth')); });
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openAuth(btn.getAttribute('data-open-auth'));
+    });
   });
   $('tab-login').addEventListener('click', function () { setMode('login'); });
   $('tab-register').addEventListener('click', function () { setMode('register'); });
@@ -831,6 +575,20 @@
   revealBtn.addEventListener('click', function () {
     passInput.type = passInput.type === 'password' ? 'text' : 'password';
     updateReveal();
+  });
+
+  $('auth-resend').addEventListener('click', function () {
+    var email = lastEmail || emailInput.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return showError('INVALID_EMAIL', emailInput);
+    var btn = $('auth-resend');
+    btn.disabled = true;
+    api('/resend-verification', { method: 'POST', body: JSON.stringify({ email: email }) })
+      .then(function () { showInfo('RESENT', false); })
+      .catch(function (err) {
+        var code = err && err.code && T.es[err.code] ? err.code : 'SERVER_ERROR';
+        showInfo(code, true);
+      })
+      .then(function () { btn.disabled = false; });
   });
 
   form.addEventListener('submit', function (e) {
@@ -847,17 +605,28 @@
     busy = true;
     submitBtn.disabled = true;
     errorCode = null;
+    infoCode = null;
     clearInvalid();
     renderError();
+    renderInfo();
+    lastEmail = email;
 
     api(mode === 'register' ? '/register' : '/login', {
       method: 'POST',
       body: JSON.stringify({ email: email, password: password })
     }).then(function (data) {
+      if (mode === 'register') {
+        // El registro no abre sesion: primero hay que confirmar el email.
+        pending = true;
+        dlg.setAttribute('data-state', 'pending');
+        $('pending-email').textContent = (data && data.email) || email;
+        form.reset();
+        updateResend();
+        return;
+      }
       user = data.user;
       closeAuth();
       renderUser();
-      goToAccount();
     }).catch(function (err) {
       var code = err && err.code ? err.code : 'SERVER_ERROR';
       if (!T.es[code]) code = 'SERVER_ERROR';
@@ -871,6 +640,15 @@
   });
 
   /* ---------- arranque ---------- */
+  var v = null;
+  try { v = new URLSearchParams(window.location.search).get('verificacion'); } catch (e) {}
+  if (v === 'ok') noticeCode = 'NOTICE_OK';
+  else if (v === 'invalida') noticeCode = 'NOTICE_BAD';
+  if (v) {
+    try { window.history.replaceState(null, '', window.location.pathname); } catch (e) {}
+    if (v === 'ok') setTimeout(function () { noticeCode = null; renderNotice(); }, 9000);
+  }
+
   var saved = null;
   try { saved = localStorage.getItem('pescata_lang'); } catch (e) {}
   setLang(saved === 'en' ? 'en' : 'es');
