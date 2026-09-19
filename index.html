@@ -5,26 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pescata Dev — Herramientas para servidores Arma Reforger</title>
 <meta name="description" content="Panel web con Discord, modelos 3D y desarrollo a medida para servidores de Arma Reforger, dedicados o alquilados (Nitrado, GTX, etc).">
-<meta name="theme-color" content="#12140f">
+<meta name="theme-color" content="#0b1220">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pescata Dev — Herramientas para servidores Arma Reforger">
 <meta property="og:description" content="Panel web con Discord, modelos 3D y desarrollo a medida para servidores de Arma Reforger.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%2312140f'/%3E%3Cpath d='M10 25V7h8a5.5 5.5 0 010 11h-5' fill='none' stroke='%23e3a63e' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%230b1220'/%3E%3Cpath d='M10 25V7h8a5.5 5.5 0 010 11h-5' fill='none' stroke='%234da3ff' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #12140f;
-    --bg-raised: #191c14;
-    --bg-panel: #1e2118;
-    --line: #34382b;
-    --ink: #e9e6da;
-    --muted: #96998a;
-    --muted-2: #6d705f;
-    --amber: #e3a63e;
-    --amber-dim: #8a662a;
-    --teal: #4fa8a0;
+    /* Paleta azul. Los nombres --amber y --teal se mantienen por compatibilidad:
+       --amber = color de acento principal (azul), --teal = acento secundario (cian). */
+    --bg: #0b1220;
+    --bg-raised: #101a2e;
+    --bg-panel: #13203a;
+    --line: #24345a;
+    --ink: #e6edf7;
+    --muted: #8fa1bf;
+    --muted-2: #62759a;
+    --amber: #4da3ff;
+    --amber-dim: #2a5c99;
+    --teal: #5ce1e6;
     --red: #c15b4a;
     --radius: 3px;
     --maxw: 1080px;
@@ -57,7 +59,7 @@
   /* ---------- HEADER ---------- */
   header{
     position:sticky; top:0; z-index:20;
-    background:rgba(18,20,15,0.88);
+    background:rgba(11,18,32,0.88);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--line);
   }
@@ -76,7 +78,7 @@
   .langtoggle button{
     background:transparent; color:var(--muted); border:none; padding:6px 10px; cursor:pointer;
   }
-  .langtoggle button.active{background:var(--amber); color:#1a1608; font-weight:600;}
+  .langtoggle button.active{background:var(--amber); color:#06111f; font-weight:600;}
   @media (max-width:720px){
     .navlinks{display:none;}
     .hide-sm{display:none;}
@@ -91,7 +93,7 @@
     color:var(--teal); font-family:'IBM Plex Mono',monospace; font-size:0.82rem;
     display:flex; align-items:center; gap:8px; margin-bottom:18px;
   }
-  .pulse{width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px rgba(79,168,160,0.18);}
+  .pulse{width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px rgba(92,225,230,0.18);}
   h1{font-size:2.7rem; line-height:1.12; margin:0 0 20px; font-weight:800; max-width:15ch;}
   @media (max-width:560px){ h1{font-size:2.05rem;} }
   .hero p.lead{color:var(--muted); font-size:1.05rem; max-width:46ch; margin:0 0 30px;}
@@ -101,8 +103,8 @@
     padding:12px 20px; border-radius:var(--radius); font-weight:600; font-size:0.94rem; font-family:inherit;
     text-decoration:none; border:1px solid transparent; cursor:pointer;
   }
-  .btn-primary{background:var(--amber); color:#1a1608;}
-  .btn-primary:hover{background:#f0b455;}
+  .btn-primary{background:var(--amber); color:#06111f;}
+  .btn-primary:hover{background:#7bbcff;}
   .btn-ghost{background:transparent; border-color:var(--line); color:var(--ink);}
   .btn-ghost:hover{border-color:var(--muted-2);}
   .btn-sm{padding:8px 14px; font-size:0.86rem;}
@@ -217,7 +219,7 @@
     width:min(420px, calc(100vw - 32px));
     box-shadow:0 30px 70px -20px rgba(0,0,0,0.7);
   }
-  dialog.auth::backdrop{background:rgba(9,10,7,0.76);}
+  dialog.auth::backdrop{background:rgba(4,8,16,0.76);}
   .auth-panel{padding:24px;}
   .auth-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:18px;}
   .auth-head h2{font-size:1.25rem; margin:0;}
