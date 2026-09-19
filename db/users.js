@@ -65,6 +65,11 @@ function memoryUpsertAdmin({ email, passwordHash }) {
   memoryUsers.push(user);
   return user;
 }
+function memoryPromoteToAdmin(id) {
+  const u = memoryFindById(id);
+  if (u) { u.role = 'admin'; u.emailVerified = true; u.verifyToken = null; u.verifyTokenExpires = null; }
+  return u;
+}
 function memoryDemoteOtherAdmins(email) {
   memoryUsers.forEach(u => {
     if (u.role === 'admin' && u.email.toLowerCase() !== String(email).toLowerCase()) u.role = 'user';
@@ -140,6 +145,14 @@ async function pgUpsertAdmin({ email, passwordHash }) {
   );
   return rowToUser(rows[0]);
 }
+// Convierte una cuenta YA existente en admin y verificada sin tocar su contrasena.
+async function pgPromoteToAdmin(id) {
+  const { rows } = await pool.query(
+    `UPDATE users SET role = 'admin', email_verified = true, verify_token = NULL, verify_token_expires = NULL WHERE id = $1 RETURNING *`,
+    [id]
+  );
+  return rowToUser(rows[0]);
+}
 async function pgDemoteOtherAdmins(email) {
   await pool.query(`UPDATE users SET role = 'user' WHERE role = 'admin' AND lower(email) <> lower($1)`, [email]);
 }
@@ -170,6 +183,7 @@ module.exports = {
   setVerifyToken: usingPostgres ? pgSetVerifyToken : memorySetVerifyToken,
   markVerified: usingPostgres ? pgMarkVerified : memoryMarkVerified,
   upsertAdmin: usingPostgres ? pgUpsertAdmin : memoryUpsertAdmin,
+  promoteToAdmin: usingPostgres ? pgPromoteToAdmin : memoryPromoteToAdmin,
   demoteOtherAdmins: usingPostgres ? pgDemoteOtherAdmins : memoryDemoteOtherAdmins,
   listUsers: usingPostgres ? pgListUsers : memoryListUsers,
 };

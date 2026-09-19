@@ -313,7 +313,7 @@
           <input id='auth-password' name='password' type='password' autocomplete='current-password' required>
           <button class='reveal' id='auth-reveal' type='button' aria-controls='auth-password'>Mostrar</button>
         </div>
-        <p class='hint' id='auth-hint' data-only='register'><span data-i18n-es>Mínimo 8 caracteres. Te enviaremos un correo para confirmar la cuenta.</span><span data-i18n-en>At least 8 characters. We will email you to confirm the account.</span></p>
+        <p class='hint' id='auth-hint' data-only='register'><span data-i18n-es>Mínimo 8 caracteres. Activaré tu cuenta a mano después de que te registres.</span><span data-i18n-en>At least 8 characters. I will activate your account by hand after you sign up.</span></p>
       </div>
       <p class='form-error' id='auth-error' role='alert' hidden></p>
       <button class='btn btn-primary btn-block' id='auth-submit' type='submit'>
@@ -325,13 +325,10 @@
     </form>
 
     <div class='pending' id='auth-pending'>
-      <p><strong><span data-i18n-es>Revisa tu correo</span><span data-i18n-en>Check your email</span></strong></p>
-      <p><span data-i18n-es>Te hemos enviado un enlace de confirmación a</span><span data-i18n-en>We have sent a confirmation link to</span> <strong id='pending-email'></strong>. <span data-i18n-es>Ábrelo para activar tu cuenta y después accede. Si no lo ves, mira en spam.</span><span data-i18n-en>Open it to activate your account, then log in. If you cannot see it, check spam.</span></p>
+      <p><strong><span data-i18n-es>Cuenta creada</span><span data-i18n-en>Account created</span></strong></p>
+      <p><span data-i18n-es>Hemos registrado</span><span data-i18n-en>We have registered</span> <strong id='pending-email'></strong>. <span data-i18n-es>Tu cuenta está pendiente de aprobación: cuando la active podrás acceder con tu email y contraseña. Si tienes prisa, avísame por Discord.</span><span data-i18n-en>Your account is pending approval: once I activate it you can log in with your email and password. If you are in a hurry, ping me on Discord.</span></p>
     </div>
 
-    <div class='resend-row' id='auth-resend-row' hidden>
-      <button class='btn btn-ghost btn-sm' type='button' id='auth-resend'><span data-i18n-es>Reenviar correo de confirmación</span><span data-i18n-en>Resend confirmation email</span></button>
-    </div>
     <p id='auth-info' role='status' hidden></p>
   </div>
 </dialog>
@@ -353,7 +350,7 @@
       WEAK_PASSWORD: 'La contraseña debe tener al menos 8 caracteres.',
       EMAIL_TAKEN: 'Ya existe una cuenta con ese email. Prueba a acceder.',
       BAD_CREDENTIALS: 'Email o contraseña incorrectos.',
-      EMAIL_NOT_VERIFIED: 'Aún no has confirmado tu email. Revisa tu bandeja de entrada (y el spam) o pide un nuevo correo.',
+      ACCOUNT_PENDING: 'Tu cuenta está pendiente de aprobación. Cuando la active podrás acceder. Si tienes prisa, avísame por Discord.',
       RATE_LIMITED: 'Demasiados intentos. Espera unos minutos y vuelve a probar.',
       NETWORK: 'No hay conexión con el servidor. Comprueba tu conexión y vuelve a probar.',
       SERVER_ERROR: 'No hemos podido completar la acción. Vuelve a probar en un momento.',
@@ -368,7 +365,7 @@
       WEAK_PASSWORD: 'The password must be at least 8 characters long.',
       EMAIL_TAKEN: 'An account with that email already exists. Try logging in.',
       BAD_CREDENTIALS: 'Incorrect email or password.',
-      EMAIL_NOT_VERIFIED: 'You have not confirmed your email yet. Check your inbox (and spam) or request a new email.',
+      ACCOUNT_PENDING: 'Your account is pending approval. Once I activate it you will be able to log in. If you are in a hurry, ping me on Discord.',
       RATE_LIMITED: 'Too many attempts. Wait a few minutes and try again.',
       NETWORK: 'Cannot reach the server. Check your connection and try again.',
       SERVER_ERROR: 'We could not complete that. Please try again in a moment.',
@@ -492,7 +489,7 @@
     revealBtn.setAttribute('aria-pressed', visible ? 'true' : 'false');
   }
   function updateResend() {
-    $('auth-resend-row').hidden = !(pending || errorCode === 'EMAIL_NOT_VERIFIED');
+    // Sin correo de confirmacion: no hay boton de reenvio.
   }
   function clearInvalid() {
     emailInput.removeAttribute('aria-invalid');
@@ -577,20 +574,6 @@
     updateReveal();
   });
 
-  $('auth-resend').addEventListener('click', function () {
-    var email = lastEmail || emailInput.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return showError('INVALID_EMAIL', emailInput);
-    var btn = $('auth-resend');
-    btn.disabled = true;
-    api('/resend-verification', { method: 'POST', body: JSON.stringify({ email: email }) })
-      .then(function () { showInfo('RESENT', false); })
-      .catch(function (err) {
-        var code = err && err.code && T.es[err.code] ? err.code : 'SERVER_ERROR';
-        showInfo(code, true);
-      })
-      .then(function () { btn.disabled = false; });
-  });
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (busy) return;
@@ -616,7 +599,7 @@
       body: JSON.stringify({ email: email, password: password })
     }).then(function (data) {
       if (mode === 'register') {
-        // El registro no abre sesion: primero hay que confirmar el email.
+        // El registro no abre sesion: la cuenta queda pendiente hasta que el admin la apruebe.
         pending = true;
         dlg.setAttribute('data-state', 'pending');
         $('pending-email').textContent = (data && data.email) || email;

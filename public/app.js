@@ -232,7 +232,7 @@
         if (!u.emailVerified) unverified++;
       });
       var stats = h('div', { class: 'stats' });
-      [[users.length, 'cuentas en total'], [week, 'últimos 7 días (' + today + ' hoy)'], [unverified, 'sin verificar']].forEach(function (s) {
+      [[users.length, 'cuentas en total'], [week, 'últimos 7 días (' + today + ' hoy)'], [unverified, 'pendientes de aprobar']].forEach(function (s) {
         stats.appendChild(h('div', { class: 'stat' }, [h('b', { text: String(s[0]) }), h('span', { text: s[1] })]));
       });
       box.appendChild(stats);
@@ -240,7 +240,7 @@
       var rows = users.map(function (u) {
         var actions = h('div', { class: 'actions' });
         if (!u.emailVerified) {
-          var vb = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: 'Verificar email' });
+          var vb = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: 'Aprobar cuenta' });
           vb.addEventListener('click', function () {
             vb.disabled = true;
             call('PATCH', '/api/admin/users/' + u.id + '/verify').then(loadAdmClientes).catch(function () {
@@ -259,7 +259,7 @@
           h('td', null, [actions])
         ]);
       });
-      box.appendChild(table(['Email', 'Rol', 'Verificado', 'Alta', ''], rows));
+      box.appendChild(table(['Email', 'Rol', 'Aprobada', 'Alta', ''], rows));
     }).catch(fail(box));
   }
 

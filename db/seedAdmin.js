@@ -1,8 +1,13 @@
-// Crea o actualiza la cuenta de administrador al arrancar, a partir de dos
-// variables de entorno que SOLO viven en Render (nunca en el repo):
+// Prepara la cuenta de administrador al arrancar, a partir de variables de
+// entorno que SOLO viven en Render (nunca en el repo):
 //   ADMIN_EMAIL     email del admin
-//   ADMIN_PASSWORD  contrasena (minimo 12 caracteres)
-// Solo puede haber un admin: el resto de cuentas con rol admin pasan a user.
+//   ADMIN_PASSWORD  contrasena; SOLO se usa si la cuenta todavia no existe
+//                   (minimo 12 caracteres)
+//
+// - Si la cuenta ADMIN_EMAIL ya existe (por ejemplo, registrada desde la web),
+//   se convierte en admin y queda verificada. NO se toca su contrasena.
+// - Si no existe, se crea con ADMIN_PASSWORD.
+// - Solo puede haber un admin: el resto de cuentas con rol admin pasan a user.
 // Como esto ocurre antes de que el servidor acepte peticiones, nadie puede
 // registrar ese email desde la web antes que el dueno.
 
@@ -19,17 +24,20 @@ async function seedAdmin() {
   if (!email && !password) return; // no configurado: no hay admin
 
   if (!EMAIL_RE.test(email)) {
-    console.warn('[admin] ADMIN_EMAIL no es un email valido: no se crea el administrador.');
-    return;
-  }
-  if (password.length < MIN_ADMIN_PASSWORD || Buffer.byteLength(password) > MAX_PASSWORD_BYTES) {
-    console.warn('[admin] ADMIN_PASSWORD debe tener al menos 12 caracteres (y no pasar de 72 bytes): no se crea el administrador.');
+    console.warn('[admin] ADMIN_EMAIL no es un email valido: no se prepara el administrador.');
     return;
   }
 
   const existing = await usersDb.findByEmail(email);
-  const upToDate = existing && existing.role === 'admin' && (await bcrypt.compare(password, existing.passwordHash));
-  if (!upToDate) {
+  if (existing) {
+    if (existing.role !== 'admin' || !existing.emailVerified) {
+      await usersDb.promoteToAdmin(existing.id);
+    }
+  } else {
+    if (password.length < MIN_ADMIN_PASSWORD || Buffer.byteLength(password) > MAX_PASSWORD_BYTES) {
+      console.warn('[admin] La cuenta no existe y ADMIN_PASSWORD debe tener al menos 12 caracteres (y no pasar de 72 bytes): no se crea el administrador.');
+      return;
+    }
     await usersDb.upsertAdmin({ email, passwordHash: await bcrypt.hash(password, 12) });
   }
   await usersDb.demoteOtherAdmins(email);
