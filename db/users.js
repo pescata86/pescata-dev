@@ -2,6 +2,8 @@
 // cae a un array en memoria (solo para poder arrancar en local sin BD).
 // La forma de los objetos que devuelve es siempre la misma:
 //   { id, email, passwordHash, createdAt }
+// IMPORTANTE: con Postgres estas funciones son asincronas, asi que quien
+// las llame debe usar siempre `await` (en memoria tambien funciona con await).
 
 const { pool } = require('./pool');
 

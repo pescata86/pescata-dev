@@ -25,6 +25,10 @@ async function ensureSchema() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
+  // Un mismo email no puede existir dos veces aunque cambie la capitalizacion.
+  await pool.query(
+    'CREATE UNIQUE INDEX IF NOT EXISTS users_email_lower_idx ON users (lower(email));'
+  );
 }
 
 module.exports = { pool, ensureSchema };

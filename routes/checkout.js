@@ -14,32 +14,36 @@ const PRICES = {
   sistema_30d: { name: 'Sistema - 30 dias', unitAmount: 0, currency: 'eur' },
 };
 
-router.post('/create-checkout-session', requireAuth, async (req, res) => {
-  if (!stripe) {
-    return res.status(503).json({ error: 'Stripe no esta configurado todavia (falta STRIPE_SECRET_KEY)' });
-  }
-  const { plan } = req.body || {};
-  const priceInfo = PRICES[plan];
-  if (!priceInfo) {
-    return res.status(400).json({ error: 'Plan desconocido' });
-  }
+router.post('/create-checkout-session', requireAuth, async (req, res, next) => {
+  try {
+    if (!stripe) {
+      return res.status(503).json({ error: 'Stripe no esta configurado todavia (falta STRIPE_SECRET_KEY)' });
+    }
+    const { plan } = req.body || {};
+    const priceInfo = PRICES[plan];
+    if (!priceInfo) {
+      return res.status(400).json({ error: 'Plan desconocido' });
+    }
 
-  const session = await stripe.checkout.sessions.create({
-    mode: 'payment',
-    line_items: [{
-      price_data: {
-        currency: priceInfo.currency,
-        product_data: { name: priceInfo.name },
-        unit_amount: priceInfo.unitAmount,
-      },
-      quantity: 1,
-    }],
-    success_url: `${req.protocol}://${req.get('host')}/checkout/exito?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${req.protocol}://${req.get('host')}/checkout/cancelado`,
-    metadata: { userId: String(req.session.userId), plan },
-  });
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: [{
+        price_data: {
+          currency: priceInfo.currency,
+          product_data: { name: priceInfo.name },
+          unit_amount: priceInfo.unitAmount,
+        },
+        quantity: 1,
+      }],
+      success_url: `${req.protocol}://${req.get('host')}/checkout/exito?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.protocol}://${req.get('host')}/checkout/cancelado`,
+      metadata: { userId: String(req.session.userId), plan },
+    });
 
-  res.json({ url: session.url });
+    res.json({ url: session.url });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // Webhook de Stripe: aqui es donde, cuando el pago se confirme, se debe

@@ -9,6 +9,8 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20.11.0
+      - key: NODE_ENV
+        value: production
       - key: SESSION_SECRET
         sync: false
       - key: DATABASE_URL
