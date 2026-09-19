@@ -67,13 +67,15 @@ app.use('/api/checkout', checkoutRouter);
 app.use('/api/services', servicesRouter);
 app.use('/api/support', supportRouter);
 
-// Paginas de vuelta de Stripe: de momento aterrizan en el panel.
+// Paginas de vuelta de Stripe: de momento aterrizan en el area de cliente.
 app.get(['/checkout/exito', '/checkout/cancelado'], (req, res) => res.redirect('/#app'));
 
 // Portada = index.html + extras. Al arrancar se monta asi:
-//  - public/tema.css se enlaza al final del <head> (con hash para evitar cache vieja)
+//  - public/tema.css y public/app.css se enlazan al final del <head> (con hash para evitar cache vieja)
 //  - la seccion <section class="hero"> de index.html se sustituye por public/hero.html
-//  - public/admin.js (panel de admin, solo visible para el admin) se carga al final del <body>
+//  - el marcador <!--APP--> se sustituye por public/app.html (area de cliente: panel lateral,
+//    catalogo, perfil, historial, soporte y, solo para el admin, sus vistas de gestion)
+//  - public/app.js se carga al final del <body>
 // Si falta alguno de esos ficheros, se sirve lo demas tal cual (sin romper la web).
 function fileHash(buf) {
   return crypto.createHash('md5').update(buf).digest('hex').slice(0, 8);
@@ -89,10 +91,14 @@ function buildIndex() {
     console.warn('No se pudo aplicar el tema (public/tema.css o public/hero.html):', err.message);
   }
   try {
-    const js = fs.readFileSync(path.join(__dirname, 'public', 'admin.js'));
-    page = page.replace('</body>', () => '<script src="/admin.js?v=' + fileHash(js) + '" defer></script>\n</body>');
+    const css = fs.readFileSync(path.join(__dirname, 'public', 'app.css'));
+    page = page.replace('</head>', () => '<link rel="stylesheet" href="/app.css?v=' + fileHash(css) + '">\n</head>');
+    const fragment = fs.readFileSync(path.join(__dirname, 'public', 'app.html'), 'utf8');
+    page = page.replace('<!--APP-->', () => fragment);
+    const js = fs.readFileSync(path.join(__dirname, 'public', 'app.js'));
+    page = page.replace('</body>', () => '<script src="/app.js?v=' + fileHash(js) + '" defer></script>\n</body>');
   } catch (err) {
-    console.warn('No se pudo cargar public/admin.js:', err.message);
+    console.warn('No se pudo cargar el area de cliente (public/app.css, app.html o app.js):', err.message);
   }
   return page;
 }

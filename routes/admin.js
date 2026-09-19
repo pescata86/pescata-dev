@@ -9,8 +9,22 @@ const ticketsDb = require('../db/tickets');
 
 const router = express.Router();
 
+const SERVICE_STATUS = ['pendiente', 'activo', 'suspendido', 'caducado', 'cancelado'];
+const TICKET_STATUS = ['abierto', 'en_curso', 'cerrado'];
+
 async function currentUser(req) {
   return req.session && req.session.userId ? usersDb.findById(req.session.userId) : null;
+}
+
+function bad(res, code, error) {
+  return res.status(400).json({ code, error });
+}
+function idParam(req) {
+  const n = Number(req.params.id);
+  return Number.isInteger(n) && n > 0 ? n : null;
+}
+function isPlainObject(v) {
+  return v !== null && typeof v === 'object' && !Array.isArray(v);
 }
 
 // Siempre 200: el frontend lo usa para saber si debe mostrar el panel.
@@ -51,6 +65,21 @@ router.get('/users', async (req, res, next) => {
   }
 });
 
+// Verificacion manual de email: para cuentas que no pueden recibir el correo
+// (Resend sin configurar, cuenta de pruebas, cliente que no lo encuentra...).
+router.patch('/users/:id/verify', async (req, res, next) => {
+  try {
+    const id = idParam(req);
+    if (!id) return bad(res, 'INVALID_ID', 'Id no valido.');
+    const target = await usersDb.findById(id);
+    if (!target) return res.status(404).json({ code: 'USER_NOT_FOUND', error: 'Cliente no encontrado.' });
+    const updated = await usersDb.markVerified(target.id);
+    res.json({ user: { id: updated.id, email: updated.email, emailVerified: updated.emailVerified } });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Contratos/servicios de todos los clientes: estado, configuracion, fechas.
 router.get('/services', async (req, res, next) => {
   try {
@@ -64,12 +93,26 @@ router.get('/services', async (req, res, next) => {
 router.post('/services', async (req, res, next) => {
   try {
     const { userId, product, status, config, notes, startsAt, expiresAt } = req.body || {};
-    if (!userId || !product) {
-      return res.status(400).json({ code: 'INVALID_SERVICE', error: 'Falta userId o product.' });
+    if (!userId || typeof product !== 'string' || !product.trim()) {
+      return bad(res, 'INVALID_SERVICE', 'Falta cliente o producto.');
+    }
+    if (status !== undefined && !SERVICE_STATUS.includes(status)) {
+      return bad(res, 'INVALID_STATUS', 'Estado no valido.');
+    }
+    if (config !== undefined && !isPlainObject(config)) {
+      return bad(res, 'INVALID_CONFIG', 'La configuracion debe ser un objeto JSON.');
     }
     const target = await usersDb.findById(Number(userId));
     if (!target) return res.status(404).json({ code: 'USER_NOT_FOUND', error: 'Cliente no encontrado.' });
-    const service = await servicesDb.create({ userId: target.id, product, status, config, notes, startsAt, expiresAt });
+    const service = await servicesDb.create({
+      userId: target.id,
+      product: product.trim().slice(0, 200),
+      status,
+      config,
+      notes: typeof notes === 'string' ? notes.slice(0, 4000) : null,
+      startsAt,
+      expiresAt,
+    });
     res.status(201).json({ service });
   } catch (err) {
     next(err);
@@ -78,7 +121,23 @@ router.post('/services', async (req, res, next) => {
 
 router.patch('/services/:id', async (req, res, next) => {
   try {
-    const service = await servicesDb.update(Number(req.params.id), req.body || {});
+    const id = idParam(req);
+    if (!id) return bad(res, 'INVALID_ID', 'Id no valido.');
+    const body = req.body || {};
+    if (body.status !== undefined && !SERVICE_STATUS.includes(body.status)) {
+      return bad(res, 'INVALID_STATUS', 'Estado no valido.');
+    }
+    if (body.config !== undefined && !isPlainObject(body.config)) {
+      return bad(res, 'INVALID_CONFIG', 'La configuracion debe ser un objeto JSON.');
+    }
+    const fields = {
+      status: body.status,
+      config: body.config,
+      notes: typeof body.notes === 'string' ? body.notes.slice(0, 4000) : undefined,
+      startsAt: body.startsAt,
+      expiresAt: body.expiresAt,
+    };
+    const service = await servicesDb.update(id, fields);
     if (!service) return res.status(404).json({ code: 'NOT_FOUND', error: 'Servicio no encontrado.' });
     res.json({ service });
   } catch (err) {
@@ -98,7 +157,17 @@ router.get('/tickets', async (req, res, next) => {
 
 router.patch('/tickets/:id', async (req, res, next) => {
   try {
-    const ticket = await ticketsDb.update(Number(req.params.id), req.body || {});
+    const id = idParam(req);
+    if (!id) return bad(res, 'INVALID_ID', 'Id no valido.');
+    const body = req.body || {};
+    if (body.status !== undefined && !TICKET_STATUS.includes(body.status)) {
+      return bad(res, 'INVALID_STATUS', 'Estado no valido.');
+    }
+    const fields = {
+      status: body.status,
+      adminReply: typeof body.adminReply === 'string' ? body.adminReply.slice(0, 4000) : undefined,
+    };
+    const ticket = await ticketsDb.update(id, fields);
     if (!ticket) return res.status(404).json({ code: 'NOT_FOUND', error: 'Ticket no encontrado.' });
     res.json({ ticket });
   } catch (err) {
