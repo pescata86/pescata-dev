@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const crypto = require('crypto');
+const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
@@ -62,10 +63,30 @@ app.use('/api/checkout', checkoutRouter);
 // Paginas de vuelta de Stripe: de momento aterrizan en la zona de cuenta.
 app.get(['/checkout/exito', '/checkout/cancelado'], (req, res) => res.redirect('/#cuenta'));
 
+// Portada = index.html + tema visual. Al arrancar se monta asi:
+//  - public/tema.css se enlaza al final del <head> (con hash para evitar cache vieja)
+//  - la seccion <section class="hero"> de index.html se sustituye por public/hero.html
+// Si falta alguno de esos ficheros, se sirve index.html tal cual (sin romper la web).
+function buildIndex() {
+  let page = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+  try {
+    const css = fs.readFileSync(path.join(__dirname, 'public', 'tema.css'));
+    const v = crypto.createHash('md5').update(css).digest('hex').slice(0, 8);
+    page = page.replace('</head>', () => '<link rel="stylesheet" href="/tema.css?v=' + v + '">\n</head>');
+    const hero = fs.readFileSync(path.join(__dirname, 'public', 'hero.html'), 'utf8');
+    page = page.replace(/<section class="hero">[\s\S]*?<\/section>/, () => hero);
+  } catch (err) {
+    console.warn('No se pudo aplicar el tema (public/tema.css o public/hero.html):', err.message);
+  }
+  return page;
+}
+const INDEX_HTML = buildIndex();
+
 // Solo se publica lo que se sirve aqui: la portada y lo que haya en /public.
 // (Antes se servia toda la raiz del repo y server.js, db/ y routes/ eran descargables.)
 app.get(['/', '/index.html'], (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.set('Cache-Control', 'no-cache');
+  res.type('html').send(INDEX_HTML);
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 
