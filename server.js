@@ -8,7 +8,9 @@ const session = require('express-session');
 const PgStore = require('connect-pg-simple')(session);
 
 const { pool, ensureSchema } = require('./db/pool');
+const { seedAdmin } = require('./db/seedAdmin');
 const authRouter = require('./routes/auth');
+const adminRouter = require('./routes/admin');
 const checkoutRouter = require('./routes/checkout');
 
 const app = express();
@@ -58,25 +60,35 @@ app.use(session({
 }));
 
 app.use('/api/auth', authRouter);
+app.use('/api/admin', adminRouter);
 app.use('/api/checkout', checkoutRouter);
 
 // Paginas de vuelta de Stripe: de momento aterrizan en la zona de cuenta.
 app.get(['/checkout/exito', '/checkout/cancelado'], (req, res) => res.redirect('/#cuenta'));
 
-// Portada = index.html + tema visual. Al arrancar se monta asi:
+// Portada = index.html + extras. Al arrancar se monta asi:
 //  - public/tema.css se enlaza al final del <head> (con hash para evitar cache vieja)
 //  - la seccion <section class="hero"> de index.html se sustituye por public/hero.html
-// Si falta alguno de esos ficheros, se sirve index.html tal cual (sin romper la web).
+//  - public/admin.js (panel de admin, solo visible para el admin) se carga al final del <body>
+// Si falta alguno de esos ficheros, se sirve lo demas tal cual (sin romper la web).
+function fileHash(buf) {
+  return crypto.createHash('md5').update(buf).digest('hex').slice(0, 8);
+}
 function buildIndex() {
   let page = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
   try {
     const css = fs.readFileSync(path.join(__dirname, 'public', 'tema.css'));
-    const v = crypto.createHash('md5').update(css).digest('hex').slice(0, 8);
-    page = page.replace('</head>', () => '<link rel="stylesheet" href="/tema.css?v=' + v + '">\n</head>');
+    page = page.replace('</head>', () => '<link rel="stylesheet" href="/tema.css?v=' + fileHash(css) + '">\n</head>');
     const hero = fs.readFileSync(path.join(__dirname, 'public', 'hero.html'), 'utf8');
     page = page.replace(/<section class="hero">[\s\S]*?<\/section>/, () => hero);
   } catch (err) {
     console.warn('No se pudo aplicar el tema (public/tema.css o public/hero.html):', err.message);
+  }
+  try {
+    const js = fs.readFileSync(path.join(__dirname, 'public', 'admin.js'));
+    page = page.replace('</body>', () => '<script src="/admin.js?v=' + fileHash(js) + '" defer></script>\n</body>');
+  } catch (err) {
+    console.warn('No se pudo cargar public/admin.js:', err.message);
   }
   return page;
 }
@@ -109,8 +121,11 @@ app.use((err, req, res, next) => {
 
 process.on('unhandledRejection', err => console.error('unhandledRejection:', err));
 
+// Orden de arranque: esquema de BD -> cuenta admin -> aceptar peticiones.
 ensureSchema()
   .catch(err => console.error('No se pudo preparar el esquema de la base de datos:', err))
+  .then(() => seedAdmin())
+  .catch(err => console.error('No se pudo preparar la cuenta de administrador:', err.message))
   .finally(() => {
     app.listen(PORT, () => {
       console.log(`pescata-dev escuchando en el puerto ${PORT}`);

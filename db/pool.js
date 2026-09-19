@@ -25,6 +25,9 @@ async function ensureSchema() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
+  // role: 'user' (por defecto) o 'admin'. El admin lo fija db/seedAdmin.js
+  // a partir de variables de entorno; nadie puede hacerse admin desde la web.
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS role TEXT NOT NULL DEFAULT 'user';`);
   // Un mismo email no puede existir dos veces aunque cambie la capitalizacion.
   await pool.query(
     'CREATE UNIQUE INDEX IF NOT EXISTS users_email_lower_idx ON users (lower(email));'
