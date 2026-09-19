@@ -12,6 +12,8 @@ const { seedAdmin } = require('./db/seedAdmin');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
 const checkoutRouter = require('./routes/checkout');
+const servicesRouter = require('./routes/services');
+const supportRouter = require('./routes/support');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,7 +27,7 @@ app.disable('x-powered-by');
 
 let sessionSecret = process.env.SESSION_SECRET;
 if (!sessionSecret) {
-  console.warn('SESSION_SECRET no esta definida: se usa un secreto aleatorio y las sesiones se pierden en cada reinicio. Defínela en Render.');
+  console.warn('SESSION_SECRET no esta definida: se usa un secreto aleatorio y las sesiones se pierden en cada reinicio. Def\u00ednela en Render.');
   sessionSecret = crypto.randomBytes(32).toString('hex');
 }
 
@@ -62,9 +64,11 @@ app.use(session({
 app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/checkout', checkoutRouter);
+app.use('/api/services', servicesRouter);
+app.use('/api/support', supportRouter);
 
-// Paginas de vuelta de Stripe: de momento aterrizan en la zona de cuenta.
-app.get(['/checkout/exito', '/checkout/cancelado'], (req, res) => res.redirect('/#cuenta'));
+// Paginas de vuelta de Stripe: de momento aterrizan en el panel.
+app.get(['/checkout/exito', '/checkout/cancelado'], (req, res) => res.redirect('/#app'));
 
 // Portada = index.html + extras. Al arrancar se monta asi:
 //  - public/tema.css se enlaza al final del <head> (con hash para evitar cache vieja)
